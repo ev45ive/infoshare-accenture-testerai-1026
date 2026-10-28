@@ -284,6 +284,34 @@ _**Agent (copilot/claude-haiku-4.5)**_
 
 Nowe konto użytkownika jest aktywne i gotowe do logowania z podanymi danymi uwierzytelniającymi.
 
+## TestID: TC-AUTH-002
+## Priorytet: High
+## Tytuł: Użytkownik loguje się do systemu z poprawnymi danymi
+
+## Warunki wstępne
+| # | Warunek | Opis |
+|---|---|---|
+| 1 | System | Windows, Chrome, najnowsza wersja |
+| 2 | Dostęp do aplikacji | Załadowana strona https://app.example.com/login |
+| 3 | Konto użytkownika | Konto istnieje i jest aktywne |
+| 4 | Stan logowania | Użytkownik wylogowany |
+
+## Kroki
+| # | Akcja | Oczekiwany Rezultat | Dane Testowe |
+|---|---|---|---|
+| 1 | Wpisz email w polu Email | Pole zaakceptuje wartość | email: testuser@example.com |
+| 2 | Wpisz hasło w polu Hasło | Pole zaakceptuje wartość | haslo: SecurePass123 |
+| 3 | Kliknij przycisk Zaloguj się | Brak komunikatu błędu | n/a |
+| 4 | Czekaj na przekierowanie | Strona zmienia się na dashboard | n/a |
+| 5 | Sprawdź URL | Adres zmienił się na /dashboard | n/a |
+| 6 | Sprawdź nagłówek strony | Wyświetlony tekst Witaj, testuser | n/a |
+| 7 | Sprawdź menu | Przycisk Zaloguj zmienił się na Wyloguj | n/a |
+
+## Warunki końcowe
+- Użytkownik zalogowany
+- Sesja aktywna
+- Dostęp do zasobów chronionego dashboardu
+
 ---
 
 _**User (2026-10-28 10:53:22Z)**_
@@ -427,3 +455,145 @@ _**Agent (copilot/claude-haiku-4.5)**_
 - Konto użytkownika jest aktywne
 - Użytkownik zalogowany i widzi pulpit użytkownika
 - Email potwierdzony
+
+---
+
+_**User (2026-10-28 11:19:02Z)**_
+
+test logowania
+
+---
+
+_**User (2026-10-28 11:19:44Z)**_
+
+dodawanie do koszyka
+
+---
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+## TestID: TC-CART-001
+## Priorytet: High
+## Tytuł: Zalogowany użytkownik dodaje produkt do koszyka
+
+## Warunki wstępne
+| # | Warunek | Opis |
+|---|---|---|
+| 1 | System | Windows, Chrome, najnowsza wersja |
+| 2 | Dostęp do aplikacji | Załadowana strona https://app.example.com/products |
+| 3 | Stan użytkownika | Użytkownik zalogowany na konto |
+| 4 | Koszyk | Koszyk pusty lub zawiera produkty |
+| 5 | Produkty | Produkty dostępne w sklepie |
+
+## Kroki
+| # | Akcja | Oczekiwany Rezultat | Dane Testowe |
+|---|---|---|---|
+| 1 | Przejrzyj listę produktów | Widoczne produkty z ceną i opisem | n/a |
+| 2 | Kliknij na wybrany produkt | Otwarta strona szczegółów produktu | produkt: Laptop |
+| 3 | Sprawdź ilość | Pole ilości wyświetla domyślną wartość | ilosc: 1 |
+| 4 | Kliknij przycisk Dodaj do koszyka | Brak komunikatu błędu, ikona koszyka zmienia wygląd | n/a |
+| 5 | Sprawdź powiadomienie | Wyświetlone potwierdzenie dodania do koszyka | n/a |
+| 6 | Sprawdź licznik koszyka | Licznik zwiększył się o 1 | n/a |
+| 7 | Przejdź do koszyka | Kliknij ikonę koszyka | n/a |
+| 8 | Sprawdź zawartość koszyka | Produkt widoczny na liście z ceną i ilością | Laptop, cena: 1500 zł, ilość: 1 |
+
+## Warunki końcowe
+- Produkt znajduje się w koszyku
+- Liczba przedmiotów w koszyku się zwiększyła
+- Cena całkowita zaktualizowana
+
+---
+
+_**User (2026-10-28 11:20:18Z)**_
+
+złożenie zamówienia
+
+---
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+## TestID: TC-ORDER-001
+## Priorytet: High
+## Tytuł: Zalogowany użytkownik składa zamówienie z produktami w koszyku
+
+## Warunki wstępne
+| # | Warunek | Opis |
+|---|---|---|
+| 1 | System | Windows, Chrome, najnowsza wersja |
+| 2 | Dostęp do aplikacji | Załadowana strona https://app.example.com/cart |
+| 3 | Stan użytkownika | Użytkownik zalogowany na konto |
+| 4 | Koszyk | Koszyk zawiera co najmniej jeden produkt |
+| 5 | Dane adresu | Adres dostawy zapisany w profilu |
+
+## Kroki
+| # | Akcja | Oczekiwany Rezultat | Dane Testowe |
+|---|---|---|---|
+| 1 | Otwórz koszyk | Widoczna lista produktów z cenami | n/a |
+| 2 | Sprawdź podsumowanie | Wyświetlona cena całkowita i rabaty | cena: 1500 zł |
+| 3 | Kliknij przycisk Przejdź do kasy | Przejście na stronę wysyłki | n/a |
+| 4 | Sprawdź adres dostawy | Adres załadowany z profilu użytkownika | ul. Przykładowa 1, Warszawa |
+| 5 | Wybierz metodę dostawy | Dostawa zaakceptowana bez błędu | metoda: Kurier (24h) |
+| 6 | Kliknij Dalej | Przejście do strony płatności | n/a |
+| 7 | Sprawdź dane płatności | Formularz płatności wyświetlony | n/a |
+| 8 | Wpisz dane karty | Pola zaakceptują wartości | karta: 1234 5678 9012 3456 |
+| 9 | Kliknij przycisk Zapłać | Brak komunikatu błędu | n/a |
+| 10 | Czekaj na potwierdzenie | Wyświetlona strona potwierdzenia zamówienia | n/a |
+| 11 | Sprawdź numer zamówienia | Numer zamówienia widoczny i wysłany na email | ID: #ORD-2024-001234 |
+
+## Warunki końcowe
+- Zamówienie złożone pomyślnie
+- Email potwierdzenia wysłany na skrzynkę użytkownika
+- Zamówienie widoczne w historii zamówień
+- Koszyk opróżniony
+
+---
+
+_**User (2026-10-28 11:22:33Z)**_
+
+zapomnij wszystko o czym pisaliśmy
+
+---
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+Rozumiem. Zaczynam od nowa.
+
+Jak się masz? Czym mogę Ci dzisiaj pomóc?
+
+---
+
+_**User (2026-10-28 11:25:52Z)**_
+
+inny przykład
+
+---
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+## TestID: TC-SHOP-002
+## Priorytet: High
+## Tytuł: Użytkownik dodaje produkt do koszyka
+
+## Warunki wstępne
+| # | Warunek | Opis |
+|---|---|---|
+| 1 | System | Windows, Firefox, najnowsza wersja |
+| 2 | Dostęp do aplikacji | Załadowana strona https://app.example.com/products |
+| 3 | Użytkownik | Zalogowany w systemie |
+| 4 | Koszyk | Pusty koszyk (0 produktów) |
+
+## Kroki
+| # | Akcja | Oczekiwany Rezultat | Dane Testowe |
+|---|---|---|---|
+| 1 | Przeszukaj produkty - wpisz nazwę w pole wyszukiwania | Wyświetlone produkty zawierające szukaną frazę | laptop |
+| 2 | Kliknij pierwszy wynik wyszukiwania | Otwarta strona produktu | n/a |
+| 3 | Zmień ilość - wpisz wartość w polu Ilość | Pole zaakceptuje wartość | ilość: 2 |
+| 4 | Kliknij przycisk Dodaj do koszyka | Brak błędów, komunikat sukcesu | n/a |
+| 5 | Sprawdź ikonę koszyka w nagłówku | Licznik produktów w koszyku zaktualizowany | licznik: 2 |
+| 6 | Kliknij ikonę koszyka | Otwarta strona koszyka | n/a |
+| 7 | Weryfikuj zawartość koszyka | Produkt widoczny z prawidłową ilością i ceną | ilość: 2, cena: x PLN |
+
+## Warunki końcowe
+- Koszyk zawiera 2 sztuki wybranego produktu
+- Całkowita cena obliczona prawidłowo
+- Przycisk Przejdź do kasy dostępny

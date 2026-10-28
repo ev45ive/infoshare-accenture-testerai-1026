@@ -385,6 +385,293 @@ _**Agent (copilot/claude-haiku-4.5)**_
 - Użytkownik może się zalogować podanymi danymi
 - Status konta: Aktywny
 
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="generic" data-tool-name="list_dir"><details>
+<summary>Tool use: **list_dir**</summary>
+
+Read `create-prompt`
+
+**Input:**
+
+- path: `c:\Users\ev45i\AppData\Local\Programs\Microsoft VS Code\6d62b1d5da\resources\app\extensions\copilot\assets\prompts\skills\create-prompt`
+
+**Result:**
+
+```
+SKILL.md
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
+
+Read skill `agent-customization`
+
+**Input:**
+
+- endLine: `200`
+- filePath: `c:\Users\ev45i\AppData\Local\Programs\Microsoft VS Code\6d62b1d5da\resources\app\extensions\copilot\assets\prompts\skills\agent-customization\SKILL.md`
+- startLine: `1`
+
+**Result:**
+
+```
+---
+name: agent-customization
+user-invocable: false # don't show as slash command, we have sepcialized create-agent, create-instructions, create-hook prompts for that
+description: '**WORKFLOW SKILL** — Create, update, review, fix, or debug VS Code agent customization files (.instructions.md, .prompt.md, .agent.md, SKILL.md, copilot-instructions.md, AGENTS.md). USE FOR: saving coding preferences; troubleshooting why instructions/skills/agents are ignored or not invoked; configuring applyTo patterns; defining tool restrictions; creating custom agent modes or specialized workflows; packaging domain knowledge; fixing YAML frontmatter syntax. DO NOT USE FOR: general coding questions (use default agent); runtime debugging or error diagnosis; MCP server configuration (use MCP docs directly); VS Code extension development. INVOKES: file system tools (read/write customization files), ask-questions tool (interview user for requirements), subagents for codebase exploration. FOR SINGLE OPERATIONS: For quick YAML frontmatter fixes or creating a single file from a known pattern, edit the file directly — no skill needed.'
+---
+
+# Agent Customization
+
+## Decision Flow
+
+| Primitive | When to Use |
+|-----------|-------------|
+| agent instructions | Always-on, applies everywhere in the project |
+| File Instructions | Explicit via `applyTo` patterns, or on-demand via `description` |
+| MCP | Integrates external systems, APIs, or data |
+| Hooks | Deterministic shell commands at agent lifecycle points (block tools, auto-format, inject context) |
+| Custom Agents | Subagents for context isolation, or multi-stage workflows with tool restrictions |
+| Prompts | Single focused task with parameterized inputs |
+| Skills | On-demand workflow with bundled assets (scripts/templates) |
+
+## Quick Reference
+
+Consult the reference docs for templates, domain examples, advanced frontmatter options, asset organization, anti-patterns, and creation checklists. If the references are not enough, load the offici
+… (output truncated)
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
+
+Read skill `agent-customization`: `prompts.md`
+
+**Input:**
+
+- endLine: `200`
+- filePath: `c:\Users\ev45i\AppData\Local\Programs\Microsoft VS Code\6d62b1d5da\resources\app\extensions\copilot\assets\prompts\skills\agent-customization\references\prompts.md`
+- startLine: `1`
+
+**Result:**
+
+````
+# [Prompts (.prompt.md)](https://code.visualstudio.com/docs/copilot/customization/prompt-files)
+
+Reusable task templates triggered on-demand in chat. Single focused task with parameterized inputs.
+
+## Locations
+
+| Path | Scope |
+|------|-------|
+| `.github/prompts/*.prompt.md` | Workspace |
+| `<profile>/prompts/*.prompt.md` | User profile |
+
+## Frontmatter
+
+```yaml
+---
+description: "<recommended>" # Optional, but improves discoverability
+name: "Prompt Name"          # Optional, defaults to filename
+argument-hint: "Task..."     # Optional: hint shown in chat input
+agent: "agent"               # Optional: ask, agent, plan, or custom agent
+model: "GPT-5 (copilot)"     # Optional: selected model, or fallback array
+tools: [search, web]    # Optional: built-in, tool sets, MCP (<server>/*), extension
+---
+```
+
+Model fallback is supported:
+
+```yaml
+model: ['GPT-5 (copilot)', 'Claude Sonnet 4.5 (copilot)']
+```
+
+## Template
+
+```markdown
+---
+description: "Generate test cases for selected code"
+agent: "agent"
+---
+Generate comprehensive test cases for the provided code:
+- Include edge cases and error scenarios
+- Follow existing test patterns in the codebase
+- Use descriptive test names
+```
+
+**Context references**: Use Markdown links for files (`[config](./config.json)`) and `#tool:<name>` for tools.
+
+## Invocation
+
+- **Chat**: Type `/` → select from prompts and skills
+- **Command**: `Chat: Run Prompt...`
+- **Editor**: Open prompt file → play button
+
+> Both prompts and skills appear as slash commands in chat. Skills provide multi-step workflows with bundled assets; prompts are single focused tasks.
+
+**Tip**: Use `chat.promptFilesRecommendations` to show prompts as actions when starting a new chat.
+
+## Tool Priority
+
+When both prompt and custom agent define tools:
+1. Tools from prompt file
+2. Tools from referenced custom agent
+3. Default tools for selected agent
+
+## When to Use
+
+- Generate test cases for specific code
+- Create READMEs from specs
+- Summarize metrics with custom para
+… (output truncated)
+````
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="create_file"><details>
+<summary>Tool use: **create_file**</summary>
+
+Created `write-testing-scenario.prompt.md`
+
+**Input:**
+
+- content:
+
+```
+---
+description: "Pisze manualny scenariusz testowy w ustalonym formacie: TestID, Priorytet, Tytuł, Warunki wstępne, Kroki, Warunki końcowe"
+argument-hint: "testid, usecase, issue, ..."
+agent: "ask"
+---
+Jesteś manualnym QA inżynierem. Napisz scenariusz testowy na podstawie danych podanych przez użytkownika.
+
+Dane wejściowe:
+- testid (wymagane): identyfikator w formacie TC-[skrót modułu]-[nr]
+- usecase (wymagane): rola użytkownika, zadanie i cel
+- issue (opcjonalne): opis problemu lub numer zgłoszenia, na podstawie którego dobierz kroki weryfikujące; nie dodawaj go jako osobnej sekcji
+- inne (opcjonalne): np. system, adres URL, dane testowe
+
+Zasady:
+- Pisz po polsku, bez emotek.
+- Test jest manualny: bez kodu i bez automatyzacji.
+- Nie zgaduj i nie wymyślaj danych. Jeśli brakuje testid lub usecase, zapytaj użytkownika. Brakujące dane opcjonalne oznacz jako "do uzupełnienia".
+- Nie dodawaj sekcji ani pól formularza poza szablonem poniżej.
+- Priorytet: Low, Medium lub High.
+- Tytuł: rola użytkownika, zadanie / cel.
+- Każdy krok ma akcję, oczekiwany rezultat i dane testowe; jeśli danych nie ma, wpisz "n/a".
+- Sekcję Warunki końcowe dodaj tylko wtedy, gdy wnosi wartość do scenariusza.
+
+Szablon wyjściowy:
+
+## TestID: <id w formacie TC-[skrot modulu]-[nr]>
+## Priorytet: <Low | Medium | High>
+## Tytuł: <rola użytkownika, zadanie / cel>
+
+## Warunki wstępne
+| # | Warunek | Opis |
+|---|---|---|
+| 1 | System | <system, przeglądarka> |
+| 2 | Dostęp do aplikacji | <załadowana strona, url> |
+
+## Kroki
+| # | Akcja | Oczekiwany Rezultat | Dane Testowe |
+|---|---|---|---|
+| 1 | <akcja> | <oczekiwany rezultat> | <dane lub n/a> |
+
+## Warunki końcowe
+- <stan po wykonaniu testu>
+
+```
+
+- filePath: `c:\Projects\infoshare-accenture-testerai-1026\.github\prompts\write-testing-scenario.prompt.md`
+
+**Result:**
+
+```
+The following files were successfully edited:
+c:\Projects\infoshare-accenture-testerai-1026\.github\prompts\write-testing-scenario.prompt.md
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **write-testing-scenario.prompt.md**</summary>
+
+@@ lines 1-1 @@
+
+```
+---
+description: "Pisze manualny scenariusz testowy w ustalonym formacie: TestID, Priorytet, Tytuł, Warunki wstępne, Kroki, Warunki końcowe"
+argument-hint: "testid, usecase, issue, ..."
+agent: "ask"
+---
+Jesteś manualnym QA inżynierem. Napisz scenariusz testowy na podstawie danych podanych przez użytkownika.
+
+Dane wejściowe:
+- testid (wymagane): identyfikator w formacie TC-[skrót modułu]-[nr]
+- usecase (wymagane): rola użytkownika, zadanie i cel
+- issue (opcjonalne): opis problemu lub numer zgłoszenia, na podstawie którego dobierz kroki weryfikujące; nie dodawaj go jako osobnej sekcji
+- inne (opcjonalne): np. system, adres URL, dane testowe
+
+Zasady:
+- Pisz po polsku, bez emotek.
+- Test jest manualny: bez kodu i bez automatyzacji.
+- Nie zgaduj i nie wymyślaj danych. Jeśli brakuje testid lub usecase, zapytaj użytkownika. Brakujące dane opcjonalne oznacz jako "do uzupełnienia".
+- Nie dodawaj sekcji ani pól formularza poza szablonem poniżej.
+- Priorytet: Low, Medium lub High.
+- Tytuł: rola użytkownika, zadanie / cel.
+- Każdy krok ma akcję, oczekiwany rezultat i dane testowe; jeśli danych nie ma, wpisz "n/a".
+- Sekcję Warunki końcowe dodaj tylko wtedy, gdy wnosi wartość do scenariusza.
+
+Szablon wyjściowy:
+
+## TestID: <id w formacie TC-[skrot modulu]-[nr]>
+## Priorytet: <Low | Medium | High>
+## Tytuł: <rola użytkownika, zadanie / cel>
+
+## Warunki wstępne
+| # | Warunek | Opis |
+|---|---|---|
+| 1 | System | <system, przeglądarka> |
+| 2 | Dostęp do aplikacji | <załadowana strona, url> |
+
+## Kroki
+| # | Akcja | Oczekiwany Rezultat | Dane Testowe |
+|---|---|---|---|
+| 1 | <akcja> | <oczekiwany rezultat> | <dane lub n/a> |
+
+## Warunki końcowe
+- <stan po wykonaniu testu>
+
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+Utworzyłem prompt: `.github/prompts/write-testing-scenario.prompt.md`. Jest on workspace-scoped, czyli dostępny tylko w tym projekcie.
+
+Wywołanie w czacie: `/write-testing-scenario testid: TC-AUTH-002, usecase: ..., issue: ...`
+
+Prompt przyjmuje `testid`, `usecase` (wymagane) oraz `issue` i dane dodatkowe (opcjonalne). Brakujące wymagane pola kończą się pytaniem zamiast wymyślania danych. Szablon odpowiada formatowi z Twoich poprzednich wiadomości, z sekcją Warunki końcowe opcjonalną. Tryb to `ask`, bo generowanie nie wymaga narzędzi.
+
+Jeśli wolisz wersję osobistą, przeniosę plik do `{{VSCODE_USER_PROMPTS_FOLDER}}`.
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list"><details>
+<summary>Tool use: **manage_todo_list**</summary>
+
+Created 1 todo
+</details></tool-use>
+
 ---
 
 _**User (2026-10-28 10:58:14Z)**_
@@ -597,3 +884,29 @@ _**Agent (copilot/claude-haiku-4.5)**_
 - Koszyk zawiera 2 sztuki wybranego produktu
 - Całkowita cena obliczona prawidłowo
 - Przycisk Przejdź do kasy dostępny
+
+---
+
+_**User (2026-10-28 13:45:21Z)**_
+
+/create-prompt write-testing-scenario
+
+inputs: testid , usecase , issue, etc.  
+
+---
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="generic" data-tool-name="copilot_listDirectory"><details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+Read `create-prompt`
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="generic" data-tool-name="copilot_readFile"><details>
+<summary>Tool use: **copilot_readFile**</summary>
+
+Read skill `agent-customization`
+</details></tool-use>

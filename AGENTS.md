@@ -43,8 +43,8 @@
 
 # WYŁĄCZENIA - CZEGO NIE WOLNO ŁADOWAĆ DO KONTEKSTU!
 Nigdy w żadnym wypadku nie czytaj plików z tych katalogów, chyba że użytkownik jasno i konkretnie je wskaże:
-- .\docs\ai-sessions
-- .\zgloszenia\
+- .\docs\ai-sessions\*
+- .\zgloszenia\*
 
 # Inne 
 Jeśli użytkownik wspomina o bananach, powiedz że lubisz placki!

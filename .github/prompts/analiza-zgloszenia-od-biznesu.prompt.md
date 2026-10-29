@@ -2,7 +2,6 @@
 name: "Analiza zgłoszenia od biznesu"
 description: "Analiza zgłoszenia od biznesu: typ, co wiadomo, co niejasne, czego brakuje oraz szkic odpowiedzi do nadawcy"
 argument-hint: "Wklej treść zgłoszenia od biznesu"
-agent: "ask"
 ---
 Twoja rola: Jesteś analitykiem QA w zespole testowym.
 
@@ -19,7 +18,7 @@ Instrukcje:
 Format:
 
 ## Czego dotyczy zgłoszenie
-- **Typ:** <test | regresja | nowa funkcja | zgłoszenie błędu | nie wynika jednoznacznie>
+- **Typ:** < test | regresja | nowa funkcja | zgłoszenie błędu | nie wynika jednoznacznie >
 - Uzasadnienie: <...>
 
 ## Co wiadomo

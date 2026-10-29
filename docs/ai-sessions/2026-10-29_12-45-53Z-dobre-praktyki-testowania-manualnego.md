@@ -2625,3 +2625,157 @@ _**Agent (anthropic/Anthropic/claude-sonnet-5-5)**_
 
 Asked 9 questions (Lokalizacja skilla, Struktura plików artefaktów, Wzorzec nazwy pliku, Nazwy typów artefaktów, Format ID user story, Szablon test case, Szablon user story, Tryb przeglądu, Źródło przykładów)
 </details></tool-use>
+
+_**Agent (anthropic/Anthropic/claude-sonnet-5-5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **procedure-create-edit.md**</summary>
+
+@@ lines 29-31 @@
+
+```
+Zapisz od razu w pliku tylko tę sekcję (`replace_string_in_file`) oraz pola zależne (`Open questions`, `Linked artifacts`, lista przypadków w scenariuszu).
+5. Podsumuj w czacie (1-3 zdania o zmianie, link do sekcji w pliku), bez wklejania jej treści.
+6. Akceptacja (`vscode_askQuestions`): "Zaakceptuj" (rekomendowane) lub "Popraw" z wolnym tekstem. Przy "Popraw" wróć do kroku 3 albo od razu zmień sekcję w pliku według uwagi i podsumuj zmianę. Po akceptacji
+```
+
+@@ lines 18-20 @@
+
+```
+Ścieżka: zapytaj o potwierdzenie. Propozycja zgodna ze wzorcem `./docs/<typ>/<id>-<short-name>.<typ>.md` jako opcja rekomendowana; inna ścieżka przez wolny tekst. Jeśli plik już istnieje, ostrzeż i zapytaj, czy edytować istniejący.
+5. Zapisz od razu cały szkic do pliku ze `status: draft` (nieznane wartości jako `TBD`).
+6. Podsumuj w czacie (1-3 zdania, link do pliku) i zapytaj o akceptację lub poprawki (`vscode_askQuestions`: "Zaakceptuj" jako rekomendowane, "Popraw" z wolnym tekstem). Przy "Popraw" zmień plik zgodnie z uwagą i podsumuj zmianę
+```
+
+@@ lines 6-6 @@
+
+```
+jest źródłem prawdy. Zapisuj każdą zmianę od razu po jej przygotowaniu (po potwierdzeniu ścieżki), bez wcześniejszego pokazywania treści w czacie.
+- Nie wklejaj w czacie treści artefaktu ani jego sekcji. Po zapisie podaj: 1-3 zdania o tym, co dodano lub zmieniono (np. numery AC, ID przypadków), link do pliku i pytanie o akceptację.
+- Poprawki wprowadzaj bezpośrednio w pliku
+```
+</details></tool-use>
+
+_**Agent (anthropic/Anthropic/claude-sonnet-5-5)**_
+
+
+```
+
+```
+
+
+_**Agent (anthropic/Anthropic/claude-sonnet-5-5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **SKILL.md**</summary>
+
+@@ lines 89-89 @@
+
+```
+Zmiany zapisuj do pliku artefaktu od razu (po potwierdzeniu ścieżki). W czacie podsumowuj zmianę i podawaj link do pliku; nie wklejaj treści artefaktu
+```
+
+@@ lines 3-3 @@
+
+```
+each iteration saved to docs/ immediately, acceptance
+```
+</details></tool-use>
+
+_**Agent (anthropic/Anthropic/claude-sonnet-5-5)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
+
+Read skill `user-story-writer`: `procedure-create-edit.md`, lines 1 to 50
+
+**Input:**
+
+- endLine: `50`
+- filePath: `c:\Projects\infoshare-accenture-testerai-1026\.github\skills\user-story-writer\references\procedure-create-edit.md`
+- startLine: `1`
+
+**Result:**
+
+```
+# Procedura: tworzenie i zmiana artefaktu (iteracyjnie)
+
+## Zasady
+
+- Jedna iteracja = jedna sekcja lub grupa sekcji. Iteracja 0 = szkic całego artefaktu.
+- Plik na dysku jest źródłem prawdy. Zapisuj każdą zmianę od razu po jej przygotowaniu (po potwierdzeniu ścieżki), bez wcześniejszego pokazywania treści w czacie.
+- Nie wklejaj w czacie treści artefaktu ani jego sekcji. Po zapisie podaj: 1-3 zdania o tym, co dodano lub zmieniono (np. numery AC, ID przypadków), link do pliku i pytanie o akceptację.
+- Poprawki wprowadzaj bezpośrednio w pliku.
+- Każda runda pytań to jedno wywołanie `vscode_askQuestions`:
+  - każde pytanie ma rekomendowaną odpowiedź domyślną wynikającą ze źródeł
+  - maksymalnie 5-6 pytań na rundę
+  - wartość nieznana ze źródeł: pytanie bez rekomendacji, z opcją "TBD - odroczyć"
+- Wartości, których nie ma w źródłach, nie trafiają do artefaktu inaczej niż jako `TBD`.
+
+## Iteracja 0: szkic wstępny
+
+1. Cel: wypełnij szablon tym, co wynika z kontekstu (wejście użytkownika, rozmowa, istniejące artefakty). Resztę oznacz `TBD`.
+2. Źródła: zaproponuj listę (pytanie wielokrotnego wyboru z sugerowanym zaznaczeniem wg tabeli na końcu). Przeczytaj tylko wybrane.
+3. Pytania: runda pytań z domyślnymi odpowiedziami (rola, zakres, nieznane wartości).
+4. Ścieżka: zapytaj o potwierdzenie. Propozycja zgodna ze wzorcem `./docs/<typ>/<id>-<short-name>.<typ>.md` jako opcja rekomendowana; inna ścieżka przez wolny tekst. Jeśli plik już istnieje, ostrzeż i zapytaj, czy edytować istniejący.
+5. Zapisz od razu cały szkic do pliku ze `status: draft` (nieznane wartości jako `TBD`).
+6. Podsumuj w czacie (1-3 zdania, link do pliku) i zapytaj o akceptację lub poprawki (`vscode_askQuestions`: "Zaakceptuj" jako rekomendowane, "Popraw" z wolnym tekstem). Przy "Popraw" zmień plik zgodnie z uwagą i podsumuj zmianę.
+
+## Iteracja n: rozwijanie sekcji
+
+Powtarzaj dla kolejnych sekcji (kolejność wg tabeli), aż wszystkie `TBD` są rozstrzygnięte albo świadomie odroczone.
+… (output truncated)
+```
+</details></tool-use>
+
+_**Agent (anthropic/Anthropic/claude-sonnet-5-5)**_
+
+Poprawiłem skill: zmiany trafiają teraz od razu do pliku na dysku, a w czacie zostaje tylko podsumowanie. Nie uruchamiałem go po zmianie.
+
+**Zmiany w `.github/skills/user-story-writer/references/procedure-create-edit.md`**
+- **Zasady ogólne:** plik na dysku jest źródłem prawdy. Zapisuję od razu, po potwierdzeniu ścieżki, i nie wklejam w czacie treści artefaktu ani sekcji.
+- **Szkic wstępny:** po potwierdzeniu ścieżki zapisuję cały szkic ze `status: draft`. Nieznane wartości są oznaczone jako `TBD`.
+- **Kolejne iteracje:** zapisuję tylko daną sekcję i pola zależne, np. `Open questions` i `Linked artifacts`.
+- **Po każdym zapisie:** w czacie 1-3 zdania o zmianie (np. numery AC, ID przypadków), link do pliku i pytanie o akceptację.
+- **Przy "Popraw":** poprawiam plik bezpośrednio i znowu podsumowuję zmianę.
+
+**Zmiany w `.github/skills/user-story-writer/SKILL.md`**
+- Zmieniłem opis i krok 3 zgodnie z nowym trybem.
+
+Przegląd (`.github/skills/user-story-writer/references/procedure-review.md`) zostawiłem bez zmian. Raport z uwagami nadal trafia do czatu, a plik zmieniam dopiero po zaakceptowaniu uwag.
+
+---
+
+_**User (2026-10-29 14:00:59Z)**_
+
+dlaczego skill wypisuje mi fragmenty artefaktu w czacie zamiast zapisywać je do pliku?
+
+---
+
+_**Agent (anthropic/Anthropic/claude-sonnet-5-5)**_
+
+Skill robi tak, bo tak go zapisałem w `.github/skills/user-story-writer/references/procedure-create-edit.md`. Częściowo wynika to z Twojej specyfikacji, a częściowo z mojej interpretacji, która się z nią rozmija.
+
+**Co jest zgodne ze specyfikacją**
+- Krok "zaproponuj szkic poprawionej sekcji do akceptacji lub poprawki, a po akceptacji zaktualizuj plik" znalazł się w skillu wprost.
+
+**Gdzie odszedłem od specyfikacji**
+- **Szkic wstępny:** w specyfikacji masz "zapisz szkic do `./docs/...`". Ja kazałem go najpierw pokazać w czacie, potem zapytać o ścieżkę i dopiero wtedy zapisać.
+- **Zasada ogólna:** dopisałem "plik odzwierciedla tylko ostatnio zaakceptowany stan, nie zapisuj niezaakceptowanych zmian". Dlatego każda propozycja sekcji trafia najpierw do czatu, a Ty czytasz ją tam zamiast w pliku.
+- **Czego nie zweryfikowałem:** nie sprawdzałem logu Twojej sesji, więc nie wiem, czy skill zachował się dokładnie według tej procedury.
+
+**Możliwa zmiana: najpierw plik, w czacie tylko podsumowanie**
+- Szkic wstępny i każda propozycja sekcji trafiają od razu do pliku. Zmiany oznaczam statusem `draft` w nagłówku, a niezaakceptowane sekcje znacznikiem `TBD`.
+- W czacie zostaje krótkie podsumowanie zmian z linkiem do pliku.
+- Akceptację lub poprawkę zbieram pytaniem, a odrzuconą sekcję poprawiam w pliku.
+- Ścieżkę nadal potwierdzam przed pierwszym zapisem.
+
+Tradeoff: plik może zawierać niezaakceptowaną treść, ale przeglądasz ją w edytorze i diffie, a nie w długim czacie.
+
+Mam wprowadzić tę zmianę, czy wolisz wariant mieszany (krótkie artefakty w czacie, długie od razu w pliku)?
+
+---
+
+_**User (2026-10-29 14:03:25Z)**_
+
+popraw SKILL - zmiany od razu na dysku - a nie całe wyświetlane w czacie

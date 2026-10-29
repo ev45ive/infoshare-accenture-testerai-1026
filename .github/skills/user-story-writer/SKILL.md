@@ -1,6 +1,6 @@
 ---
 name: user-story-writer
-description: "Use when creating, editing or reviewing a user story and its manual-QA test artifacts (test scenarios, test cases, test data). Interactive, iterative workflow: initial sketch, questions with default answers, section draft, acceptance, save to docs/. Triggers: user story, historyjka użytkownika, kryteria akceptacji, acceptance criteria, scenariusz testowy, test scenario, przypadek testowy, test case, dane testowe, test data, przegląd user story, review, ShopEasy."
+description: "Use when creating, editing or reviewing a user story and its manual-QA test artifacts (test scenarios, test cases, test data). Interactive, iterative workflow: initial sketch, questions with default answers, each iteration saved to docs/ immediately, acceptance. Triggers: user story, historyjka użytkownika, kryteria akceptacji, acceptance criteria, scenariusz testowy, test scenario, przypadek testowy, test case, dane testowe, test data, przegląd user story, review, ShopEasy."
 argument-hint: "Nazwa, ID lub ścieżka user story (istniejącego lub nowego)"
 disable-model-invocation: false
 user-invocable: true
@@ -86,7 +86,7 @@ Przykłady dotyczą rejestracji (REG-01, REG-02) i służą tylko jako wzorzec f
 
 ## Krok 3: Wykonaj procedurę
 
-Postępuj według załadowanej procedury. Plik artefaktu zapisuj tylko po akceptacji użytkownika.
+Postępuj według załadowanej procedury. Zmiany zapisuj do pliku artefaktu od razu (po potwierdzeniu ścieżki). W czacie podsumowuj zmianę i podawaj link do pliku; nie wklejaj treści artefaktu.
 
 ## Krok 4: Zakończenie
 

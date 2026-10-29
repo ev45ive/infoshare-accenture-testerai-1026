@@ -3,7 +3,9 @@
 ## Zasady
 
 - Jedna iteracja = jedna sekcja lub grupa sekcji. Iteracja 0 = szkic całego artefaktu.
-- Plik na dysku odzwierciedla ostatnio zaakceptowany stan. Nie zapisuj niezaakceptowanych zmian.
+- Plik na dysku jest źródłem prawdy. Zapisuj każdą zmianę od razu po jej przygotowaniu (po potwierdzeniu ścieżki), bez wcześniejszego pokazywania treści w czacie.
+- Nie wklejaj w czacie treści artefaktu ani jego sekcji. Po zapisie podaj: 1-3 zdania o tym, co dodano lub zmieniono (np. numery AC, ID przypadków), link do pliku i pytanie o akceptację.
+- Poprawki wprowadzaj bezpośrednio w pliku.
 - Każda runda pytań to jedno wywołanie `vscode_askQuestions`:
   - każde pytanie ma rekomendowaną odpowiedź domyślną wynikającą ze źródeł
   - maksymalnie 5-6 pytań na rundę
@@ -15,9 +17,9 @@
 1. Cel: wypełnij szablon tym, co wynika z kontekstu (wejście użytkownika, rozmowa, istniejące artefakty). Resztę oznacz `TBD`.
 2. Źródła: zaproponuj listę (pytanie wielokrotnego wyboru z sugerowanym zaznaczeniem wg tabeli na końcu). Przeczytaj tylko wybrane.
 3. Pytania: runda pytań z domyślnymi odpowiedziami (rola, zakres, nieznane wartości).
-4. Pokaż szkic w czacie: pełny dla krótkich artefaktów, dla długich nagłówki sekcji z kluczową treścią.
-5. Ścieżka: zapytaj o potwierdzenie. Propozycja zgodna ze wzorcem `./docs/<typ>/<id>-<short-name>.<typ>.md` jako opcja rekomendowana; inna ścieżka przez wolny tekst. Jeśli plik już istnieje, ostrzeż i zapytaj, czy edytować istniejący.
-6. Zapisz plik ze `status: draft`.
+4. Ścieżka: zapytaj o potwierdzenie. Propozycja zgodna ze wzorcem `./docs/<typ>/<id>-<short-name>.<typ>.md` jako opcja rekomendowana; inna ścieżka przez wolny tekst. Jeśli plik już istnieje, ostrzeż i zapytaj, czy edytować istniejący.
+5. Zapisz od razu cały szkic do pliku ze `status: draft` (nieznane wartości jako `TBD`).
+6. Podsumuj w czacie (1-3 zdania, link do pliku) i zapytaj o akceptację lub poprawki (`vscode_askQuestions`: "Zaakceptuj" jako rekomendowane, "Popraw" z wolnym tekstem). Przy "Popraw" zmień plik zgodnie z uwagą i podsumuj zmianę.
 
 ## Iteracja n: rozwijanie sekcji
 
@@ -26,9 +28,9 @@ Powtarzaj dla kolejnych sekcji (kolejność wg tabeli), aż wszystkie `TBD` są 
 1. Cel iteracji: jedno zdanie (która sekcja i po co).
 2. Źródła: potwierdź lub zaproponuj nowe; doczytaj tylko brakujące.
 3. Pytania: runda z domyślnymi odpowiedziami.
-4. Szkic poprawionej sekcji w czacie (tylko ta sekcja).
-5. Akceptacja (`vscode_askQuestions`): "Zaakceptuj" (rekomendowane) lub "Popraw" z wolnym tekstem. Przy "Popraw" wróć do kroku 3 albo od razu uwzględnij uwagę i pokaż sekcję ponownie.
-6. Po akceptacji: zmień w pliku tylko tę sekcję (`replace_string_in_file`), zaktualizuj pola zależne (`Open questions`, `Linked artifacts`, lista przypadków w scenariuszu), oznacz wpis todo jako zakończony.
+4. Zapisz od razu w pliku tylko tę sekcję (`replace_string_in_file`) oraz pola zależne (`Open questions`, `Linked artifacts`, lista przypadków w scenariuszu).
+5. Podsumuj w czacie (1-3 zdania o zmianie, link do sekcji w pliku), bez wklejania jej treści.
+6. Akceptacja (`vscode_askQuestions`): "Zaakceptuj" (rekomendowane) lub "Popraw" z wolnym tekstem. Przy "Popraw" wróć do kroku 3 albo od razu zmień sekcję w pliku według uwagi i podsumuj zmianę. Po akceptacji oznacz wpis todo jako zakończony.
 
 ## Potwierdzenie ścieżki przy edycji
 

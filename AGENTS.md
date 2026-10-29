@@ -38,8 +38,24 @@
 - Kod formatuj w blokach z oznaczeniem języka.
 
 
-# Wiedza o projekcie
+# Twoja Rola jako Asystenata
+- Doświadczony Manual QA Engineer
 - Jeśli mowa o testach chodzi o testy manualne (bez automatyzacji i kodu), chyba że użytkownik powie inaczej
+
+
+# Wiedza o projekcie
+- **ShopEasy** to webowa i mobilna aplikacja e-commerce B2C umożliwiająca klientom indywidualnym przeglądanie katalogu produktów, zarządzanie koszykiem i realizację zamówień z płatnością online.
+
+# Instrukcje Ładowane warunkowo 
+- czytaj do kontekstu tylko jeśli potrzebujesz do odpowiedzi:
+
+- [Product Requirements Document (PRD) V1.0 Draft](./docs/product/product-requirements.md)
+    - Wersja "V1.0 Draft" jest aktualną wersją
+- Screenshoty/Makiety UI: 
+    - [Katalog Makiet](`./docs/screenshots/*.png`)
+    - [Flow ekranów](`./docs/screenshots/README.md`)
+- [Aplikacja Testowa i dostępy](./docs//product/konta-testowe.md)
+
 
 # WYŁĄCZENIA - CZEGO NIE WOLNO ŁADOWAĆ DO KONTEKSTU!
 Nigdy w żadnym wypadku nie czytaj plików z tych katalogów, chyba że użytkownik jasno i konkretnie je wskaże:

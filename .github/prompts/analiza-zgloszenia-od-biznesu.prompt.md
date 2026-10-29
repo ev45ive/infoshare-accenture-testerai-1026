@@ -36,3 +36,45 @@ Format:
 **Temat:** Re: <temat zgłoszenia>
 
 <zwięzła treść: co już można sprawdzić, o co dopytać, czego brakuje i skąd to uzyskać>
+
+
+# Przykładowe treści:
+
+```
+Cześć Marta,
+
+Dzięki za zgłoszenie.
+
+Co mogę Ci już powiedzieć:
+- <co wiadomo, co możemy już zrobić, co możemy sprawdzić. itp>
+- ...
+
+Co potrzebujemy od Ciebie:
+- <nazwy żródeł, dokumentów, wersji, środowisko, itp>
+- <pilne kwestie które warto zapytać Marty teraz>
+- ...
+
+Pozdrawiam,
+Janusz
+```
+
+
+```
+Cześć Magda,
+
+Dzięki za zgłoszenie.
+
+Co mogę Ci już powiedzieć:
+- <co wiadomo>
+- <co możemy już zrobić, co musimy sprawdzić. itp>
+- <skąd to wiemy>
+- ...
+
+Co potrzebujemy od Ciebie:
+- <nazwy żródeł, dokumentów, wersji, środowisko, itp>
+- <najważniejsze pytania na które rola Magdy pozwala odpowiedzieć>
+- ...
+
+Pozdrawiam,
+Kasia
+```

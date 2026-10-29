@@ -10,10 +10,11 @@ Cel: Przeanalizuj zgłoszenie od biznesu podane po nazwie prompta i przygotuj an
 Instrukcje:
 - Nie zgaduj. Jeśli informacji jest za mało, napisz: „Nie mam wystarczających informacji, żeby odpowiedzieć."
 - Nie zakładaj wymagań, intencji ani kontekstu, których nie ma w zgłoszeniu.
+- Jeśli zgłoszenie odnosi się do wymagań, funkcji, ekranów lub dokumentów załaduj wymagane zasoby.
 - Odróżniaj fakty ze zgłoszenia od własnych interpretacji.
 - Istotne informacje pogrubiaj.
 - W sekcjach analizy używaj zagnieżdżonych list punktowych.
-- W odpowiedzi do nadawcy nie zadawaj pytań niewłaściwych dla jego roli. Zamiast tego wskaż, skąd można uzyskać brakujące informacje.
+- W odpowiedzi do nadawcy nie zadawaj pytań niewłaściwych dla jego roli. Zamiast tego zapytaj, skąd można uzyskać brakujące informacje.
 
 Format:
 
@@ -29,6 +30,9 @@ Format:
 
 ## Czego brakuje
 - <opis, załącznik, dokument, system, dostęp, dane testowe itp.>
+
+# Źródła
+- <z jakich zasobów, dokumentów, plików korzystałeś>
 
 ## Odpowiedź do nadawcy
 **Do:** <nadawca zgłoszenia>

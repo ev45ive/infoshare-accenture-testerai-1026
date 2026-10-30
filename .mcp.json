@@ -1,0 +1,46 @@
+{
+    "mcpServers": {
+        "playwright": {
+            "command": "npx",
+            "args": [
+                "@playwright/mcp@latest"
+            ]
+        },
+        "chrome-devtools": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "chrome-devtools-mcp@latest"
+            ]
+        },
+        "dbhub": {
+            "command": "npx",
+            "args": [
+                "@bytebase/dbhub@latest",
+                "--transport",
+                "stdio",
+                "--host",
+                "127.0.0.1",
+                "--port",
+                "8080",
+                "--dsn",
+                "sqlite:////shopeasy-demo/dev.db"
+            ]
+        },
+        "thunderclient": {
+            "type": "stdio",
+            "command": "npx",
+            "args": [
+                "-y",
+                "thunderclient-mcp"
+            ]
+        },
+        "context7": {
+            "type": "http",
+            "url": "https://mcp.context7.com/mcp",
+            "headers": {
+                "Authorization": "Bearer YOUR_API_KEY"
+            }
+        }
+    }
+}

@@ -731,6 +731,24 @@ _**Agent (copilot/claude-haiku-5.5)**_
 Asked 3 questions (plan-content, plan-name, target-type)
 </details></tool-use>
 
+_**Agent (copilot/claude-haiku-5.5)**_
+
+Wystarczy uruchomić serwer deweloperski z katalogu `shopeasy-demo`:
+
+```bash
+cd shopeasy-demo
+npm run dev
+```
+
+Aplikacja będzie dostępna pod adresem http://localhost:3000. Zależności, baza i klient Prisma są już przygotowane, więc przy kolejnych uruchomieniach nie trzeba ich ponownie instalować.
+
+Dodatkowe komendy, gdy są potrzebne:
+- `npm run seed` resetuje dane testowe, np. odblokowuje konto po teście lockoutu.
+- `npm install` ponownie tylko po zmianie zależności w `package.json`.
+- `npx prisma db push` i `npx prisma generate` tylko po zmianie `prisma/schema.prisma`.
+
+Serwer zatrzymuje się po zamknięciu terminala lub naciśnięciu Ctrl+C.
+
 ---
 
 _**User (2026-10-30 08:53:17Z)**_
@@ -1000,4 +1018,26 @@ _**Agent (copilot/claude-haiku-5.5)**_
 <summary>Tool use: **vscode_askQuestions**</summary>
 
 Asked a question (Zakres)
+</details></tool-use>
+
+---
+
+_**User (2026-10-30 10:11:05Z)**_
+
+jak uruchamiać aplikacje w przyszłosci?
+
+---
+
+_**User (2026-10-30 10:12:02Z)**_
+
+dopisz do instrukcji jak uruchomić serwer jeśli nie działa już na porcie :3000
+
+---
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="generic" data-tool-name="copilot_readFile"><details>
+<summary>Tool use: **copilot_readFile**</summary>
+
+Read `konta-testowe.md`
 </details></tool-use>

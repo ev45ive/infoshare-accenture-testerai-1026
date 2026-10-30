@@ -19,7 +19,18 @@ Procedura prowadzenia sesji eksploracyjnej (testy manualne). Prowadzi agent [Exp
 - Hasła i sekrety nigdy nie trafiają do karty. Konto zapisz jako nazwę lub rolę.
 - Rozmawiaj i pisz kartę po polsku.
 - Wszystkie pytania zadawaj narzędziem pytań (`#tool:vscode_askQuestions`), każde z domyślną odpowiedzią.
-- Czas podaje tester w formacie HH:MM. Agent nie odczytuje zegara.
+
+## Czas
+
+Bieżąca godzina (HH:MM) pochodzi z komendy w terminalu. Uruchom ją w Git Bash lub cmd:
+
+```
+powershell -NoProfile -Command "Get-Date -Format HH:mm"
+```
+
+- Użyj wyniku jako godziny startu, wpisu i końca.
+- Jeśli komenda zawiedzie lub zwróci coś innego niż HH:MM, zapytaj testera o godzinę.
+- Komenda nie jest jeszcze sprawdzona w obu powłokach. Potwierdź ją przy pierwszej sesji.
 
 ## Krok 1: Start
 
@@ -28,7 +39,7 @@ Jedna runda pytań:
 1. Charter: użytkownik podaje własny albo wybiera z propozycji. Format: "Eksploruj [obszar] używając [zasobów/technik], aby odkryć [informacje/ryzyka]".
 2. Czas planowany: domyślnie 30 min.
 3. Źródło obszaru: dowolna eksploracja / PRD / makiety / zgłoszenie. Dla PRD czytaj `docs/product/product-requirements.md`, dla makiet `docs/screenshots/README.md`. Zgłoszenie wskazuje użytkownik (treścią lub ścieżką).
-4. Środowisko: aplikacja, URL, wersja/build, przeglądarka lub urządzenie, konto/rola, dane testowe, godzina startu (HH:MM), data.
+4. Środowisko: aplikacja, URL, wersja/build, przeglądarka lub urządzenie, konto/rola, dane testowe, data.
 
 Następnie:
 
@@ -42,7 +53,7 @@ Następnie:
 Dla każdego kroku:
 
 1. Tester wykonuje krok w aplikacji.
-2. Zapytaj o wynik i godzinę, jedną rundą pytań. Wynik: ZGODNY / BUG (podejrzenie) / OBSERWACJA (pytanie na potem) / ZABLOKOWANIE.
+2. Zapytaj o wynik, jedną rundą pytań. Godzinę weź z sekcji Czas. Wynik: ZGODNY / BUG (podejrzenie) / OBSERWACJA (pytanie na potem) / ZABLOKOWANIE.
 3. Dopisz wiersz do tabeli w sekcji 4: czas, nr kroku (K01, K02, ...), co zrobiono, wynik, notatka.
 4. Wynik BUG: zapytaj o tytuł, kroki, oczekiwany i aktualny wynik, ważność. Dodaj wpis w sekcji 5 z ID `BUG-S<nr>-<nn>` i wpisz ID w notatce wiersza. Dowody zostaw jako "do uzupełnienia przez testera".
 5. Wynik ZABLOKOWANIE: zapisz przyczynę w notatce i zapytaj, czy przejść do innego kroku.
@@ -51,7 +62,7 @@ Dla każdego kroku:
 
 ## Krok 3: Zakończenie
 
-1. Zapytaj o godzinę końca i czas netto. Ustaw status ZAKOŃCZONA w sekcji 1.
+1. Pobierz godzinę końca z sekcji Czas i zapytaj o czas netto. Ustaw status ZAKOŃCZONA w sekcji 1.
 2. Uzupełnij sekcję 6 (Podsumowanie) pięcioma polami: pokryte obszary, niepokryte / do zrobienia, zablokowania (setup, dane, dostęp), bugi, proponowane kolejne sesje.
 3. Pokaż w czacie podsumowanie krótko i podaj ścieżkę karty. Nie wklejaj całej karty.
 

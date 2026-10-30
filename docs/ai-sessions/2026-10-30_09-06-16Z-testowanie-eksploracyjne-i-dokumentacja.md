@@ -1505,3 +1505,381 @@ _**Agent (copilot/claude-haiku-5.5)**_
 
 Created 3 todos
 </details></tool-use>
+
+---
+
+_**User (2026-10-30 10:19:06Z)**_
+
+czy skill/agent używa terminala do pobrania godziny?
+
+---
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+Nie. Agent nie ma dostępu do terminala: jego lista narzędzi to `read`, `edit`, `search` i `vscode_askQuestions` (`.github/agents/exploratory-session.agent.md`). Skill też nie pobiera godziny. Zasada mówi, że czas podaje tester w formacie HH:MM, a agent nie odczytuje zegara (`.github/skills/exploratory-session/SKILL.md`).
+
+Komendy czasu z terminala nie są podpięte, bo nie znam jeszcze wyników testu w Git Bash i cmd.
+
+---
+
+_**User (2026-10-30 10:19:28Z)**_
+
+popraw aby mógł to robić
+
+---
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="generic" data-tool-name="multi_replace_string_in_file"><details>
+<summary>Tool use: **multi_replace_string_in_file**</summary>
+
+Replacing 11 lines with 23 lines in `exploratory-session.agent.md`, `SKILL.md`
+
+**Input:**
+
+- explanation: `Allow the agent to read the current time via a single terminal command, per the skill's time section.`
+- replacements:
+
+````
+[
+  {
+    "filePath": "c:\\Projects\\infoshare-accenture-testerai-1026\\.github\\agents\\exploratory-session.agent.md",
+    "newString": "tools: [read, edit, search, execute, vscode_askQuestions]",
+    "oldString": "tools: [read, edit, search, vscode_askQuestions]"
+  },
+  {
+    "filePath": "c:\\Projects\\infoshare-accenture-testerai-1026\\.github\\agents\\exploratory-session.agent.md",
+    "newString": "- DO NOT execute test steps or open browsers. The tester does all manual actions.\n- ONLY run the time command from the skill in the terminal. No other commands.",
+    "oldString": "- DO NOT execute steps, open browsers, or run terminal commands. The tester does all manual actions."
+  },
+  {
+    "filePath": "c:\\Projects\\infoshare-accenture-testerai-1026\\.github\\agents\\exploratory-session.agent.md",
+    "newString": "1. Start: collect charter, planned time (default 30 min), area source, environment; take start time from the time command.",
+    "oldString": "1. Start: collect charter, planned time (default 30 min), area source, environment, start time."
+  },
+  {
+    "filePath": "c:\\Projects\\infoshare-accenture-testerai-1026\\.github\\agents\\exploratory-session.agent.md",
+    "newString": "2. Loop: after each step, ask for the result and take the time from the time command, then append a row to the card.",
+    "oldString": "2. Loop: after each step, ask for the result and time, then append a row to the card."
+  },
+  {
+    "filePath": "c:\\Projects\\infoshare-accenture-testerai-1026\\.github\\skills\\exploratory-session\\SKILL.md",
+    "newString": "",
+    "oldString": "- Czas podaje tester w formacie HH:MM. Agent nie odczytuje zegara.\n"
+  },
+  {
+    "filePath": "c:\\Projects\\infoshare-accenture-testerai-1026\\.github\\skills\\exploratory-session\\SKILL.md",
+    "newString": "## Czas\n\nBieżąca godzina (HH:MM) pochodzi z komendy w terminalu. Uruchom ją w Git Bash lub cmd:\n\n```\npowershell -NoProfile -Command \"Get-Date -Format HH:mm\"\n```\n\n- Użyj wyniku jako godziny startu, wpisu i końca.\n- Jeśli komenda zawiedzie lub zwróci coś innego niż HH:MM, zapytaj testera o godzinę.\n- Komenda nie jest jeszcze sprawdzona w obu powłokach. Potwierdź ją przy pierwszej sesji.\n\n## Krok 1: Start\n",
+    "oldString": "## Krok 1: Start\n"
+  },
+  {
+    "filePath": "c:\\Projects\\infoshare-accenture-testerai-1026\\.github\\skills\\exploratory-session\\SKILL.md",
+    "newString": "data.",
+    "oldString": "godzina startu (HH:MM), data."
+  },
+  {
+    "filePath": "c:\\Projects\\infoshare-accenture-testerai-1026\\.github\\skills\\exploratory-session\\SKILL.md",
+    "newString": "2. Zapytaj o wynik, jedną rundą pytań. Godzinę weź z sekcji Czas.",
+    "oldString": "2. Zapytaj o wynik i godzinę, jedną rundą pytań."
+  },
+  {
+    "filePath": "c:\\Projects\\infoshare-accenture-testerai-1026\\.github\\skills\\exploratory-session\\SKILL.md",
+    "newString": "1. Pobierz godzinę końca z sekcji Czas i zapytaj o czas netto.",
+    "oldString": "1. Zapytaj o godzinę końca i czas netto."
+  }
+]
+````
+
+
+**Result:**
+
+```
+The following files were successfully edited:
+c:\Projects\infoshare-accenture-testerai-1026\.github\agents\exploratory-session.agent.md
+c:\Projects\infoshare-accenture-testerai-1026\.github\skills\exploratory-session\SKILL.md
+String replacement failed: Could not find matching text to replace. Try making your search string more specific or checking for whitespace/formatting differences.
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **exploratory-session.agent.md**</summary>
+
+@@ lines 23-23 @@
+
+```
+ake the time from the time command
+```
+
+@@ lines 22-22 @@
+
+```
+; take start time from the time command
+```
+
+@@ lines 14-14 @@
+
+```
+test steps or open browsers. The tester does all manual actions.
+- ONLY run the time command from the skill in the terminal. No other command
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+
+```
+
+```
+
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **SKILL.md**</summary>
+
+@@ lines 54-54 @@
+
+```
+Pobierz godzinę końca z sekcji Czas i zapytaj o
+```
+
+@@ lines 45-45 @@
+
+```
+, jedną rundą pytań. Godzinę weź z sekcji Czas
+```
+
+@@ lines 31-31 @@ (deleted)
+
+@@ lines 24-24 @@
+
+````
+Czas
+
+Bieżąca godzina (HH:MM) pochodzi z komendy w terminalu. Uruchom ją w Git Bash lub cmd:
+
+```
+powershell -NoProfile -Command "Get-Date -Format HH:mm"
+```
+
+- Użyj wyniku jako godziny startu, wpisu i końca.
+- Jeśli komenda zawiedzie lub zwróci coś innego niż HH:MM, zapytaj testera o godzinę.
+- Komenda nie jest jeszcze sprawdzona w obu powłokach. Potwierdź ją przy pierwszej sesji.
+
+## 
+````
+
+@@ lines 22-23 @@ (deleted)
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="search" data-tool-name="grep_search"><details>
+<summary>Tool use: **grep_search**</summary>
+
+Searched for regex `Czas|czas|godzin|zegar|terminal|tools:|execute|DO NOT` (`**/.github/{skills/exploratory-session/SKILL.md,agents/exploratory-session.agent.md}`), 21 results
+
+**Input:**
+
+- includePattern: `.github/{skills/exploratory-session/SKILL.md,agents/exploratory-session.agent.md}`
+- isRegexp: `true`
+- query: `Czas|czas|godzin|zegar|terminal|tools:|execute|DO NOT`
+
+**Result:**
+
+```
+Found 21 matches in 2 files for "Czas|czas|godzin|zegar|terminal|tools:|execute|DO NOT"
+
+.github/agents/exploratory-session.agent.md
+4:tools: [vscode/askQuestions, read, edit, search]
+14:- DO NOT execute test steps or open browsers. The tester does all manual actions.
+15:- ONLY run the time command from the skill in the terminal. No other commands.
+16:- DO NOT write outside `docs/exploratory-sessions/`.
+17:- DO NOT read `docs/ai-sessions/*` or `zgloszenia/*` unless the user names them.
+18:- DO NOT store passwords or secrets in the card.
+19:- DO NOT guess expected results. Take them from the PRD, screenshots, the ticket, or the tester.
+28:- In chat: one short confirmation per step and the card path. Do not paste the whole card.
+
+.github/skills/exploratory-session/SKILL.md
+3:description: "Use when running a manual exploratory testing session for ShopEasy: sesja eksploracyjna, charter, eksploracja, testowanie exploracyjne, karta sesji, notatki z sesji, raport z sesji, debriefing. Procedure: start (charter, czas, obszar, środowisko), session card, step loop with observations, bugs, blockers, summary."
+23:## Czas
+25:Bieżąca godzina (HH:MM) pochodzi z komendy w terminalu. Uruchom ją w Git Bash lub cmd:
+31:- Użyj wyniku jako godziny startu, wpisu i końca.
+32:- Jeśli komenda zawiedzie lub zwróci coś innego niż HH:MM, zapytaj testera o godzinę.
+40:2. Czas planowany: domyślnie 30 min.
+56:2. Zapytaj o wynik, jedną rundą pytań. Godzinę weź z sekcji Czas. Wynik: ZGODNY / BUG (podejrzenie) / OBSERWACJA (pytanie na potem) / ZABLOKOWANIE.
+57:3. Dopisz wiersz do tabeli w sekcji 4: czas, nr kroku (K01, K02, ...), co zrobiono, wynik, notatka.
+61:7. Po przekroczeniu czasu planowanego zapytaj: kontynuować czy zakończyć.
+65:1. Pobierz godzinę końca z sekcji Czas i zapytaj o czas netto. Ustaw status ZAKOŃCZONA w sekcji 1.
+78:- Czas planowany: 30 min
+81:- Czas netto:
+101:| Czas | Nr kroku | Co zrobiono | Wynik | Notatka / ID bugu |
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
+
+Read `exploratory-session.agent.md`
+
+**Input:**
+
+- endLine: `30`
+- filePath: `c:\Projects\infoshare-accenture-testerai-1026\.github\agents\exploratory-session.agent.md`
+- startLine: `1`
+
+**Result:**
+
+```
+---
+description: "Use when running an interactive manual exploratory testing session for ShopEasy: sesja eksploracyjna, charter, eksploracja, karta sesji, bugi z sesji, debriefing. Guides the tester step by step and records the session card in docs/exploratory-sessions/."
+name: "Exploratory Session"
+tools: [vscode/askQuestions, read, edit, search]
+argument-hint: "Charter lub obszar do eksploracji"
+user-invocable: true
+---
+
+You are a manual QA assistant leading an exploratory testing session. The tester runs the steps in the application; you ask, record, and summarize.
+
+Before starting, load the procedure and the card template from [exploratory-session skill](../skills/exploratory-session/SKILL.md) and follow it.
+
+## Constraints
+- DO NOT execute test steps or open browsers. The tester does all manual actions.
+- ONLY run the time command from the skill in the terminal. No other commands.
+- DO NOT write outside `docs/exploratory-sessions/`.
+- DO NOT read `docs/ai-sessions/*` or `zgloszenia/*` unless the user names them.
+- DO NOT store passwords or secrets in the card.
+- DO NOT guess expected results. Take them from the PRD, screenshots, the ticket, or the tester.
+- ONLY ask questions with `#tool:vscode_askQuestions`, one round per decision, each with a default answer.
+
+## Approach
+1. Start: collect charter, planned time (default 30 min), area source, environment; take start time from the time command. Create the card in `docs/exploratory-sessions/`.
+2. Loop: after each step, ask for the result and take the time from the time command, then append a row to the card. Record bugs in section 5 with IDs `BUG-S<nr>-<nn>`.
+3. Finish: ask for end time and net time, set status to ZAKOŃCZONA, fill the summary section.
+
+## Output Format
+- In chat: one short confirmation per step and the card path. Do not paste the whole card.
+- In the card: the template from the skill, written in Polish.
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="generic" data-tool-name="replace_string_in_file"><details>
+<summary>Tool use: **replace_string_in_file**</summary>
+
+Replacing 1 lines with 1 lines in `exploratory-session.agent.md`
+
+**Input:**
+
+- filePath: `c:\Projects\infoshare-accenture-testerai-1026\.github\agents\exploratory-session.agent.md`
+- newString: `tools: [vscode/askQuestions, read, edit, search, execute]`
+- oldString: `tools: [vscode/askQuestions, read, edit, search]`
+
+**Result:**
+
+```
+The following files were successfully edited:
+c:\Projects\infoshare-accenture-testerai-1026\.github\agents\exploratory-session.agent.md
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **exploratory-session.agent.md**</summary>
+
+@@ lines 4-4 @@
+
+```
+, execute
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+Agent może teraz pobierać godzinę z terminala. Zmiany:
+
+- `.github/agents/exploratory-session.agent.md`: dodane narzędzie `execute`, z ograniczeniem do jednej komendy czasu.
+- `.github/skills/exploratory-session/SKILL.md`: nowa sekcja „Czas” z komendą `powershell -NoProfile -Command "Get-Date -Format HH:mm"`. Godzina startu, wpisów i końca pochodzi z tej komendy. Przy błędzie agent pyta testera.
+
+Komenda nie jest sprawdzona w Git Bash ani w cmd, bo nie mogę uruchamiać poleceń w tym trybie. Pierwsza sesja to potwierdzi. Jeśli wynik będzie inny, zmienię komendę.
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list"><details>
+<summary>Tool use: **manage_todo_list**</summary>
+
+Created 3 todos
+</details></tool-use>
+
+---
+
+_**User (2026-10-30 10:20:49Z)**_
+
+agent nie powinien czytać też kodu aplikacji
+
+---
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="generic" data-tool-name="replace_string_in_file"><details>
+<summary>Tool use: **replace_string_in_file**</summary>
+
+Replacing 2 lines with 3 lines in `exploratory-session.agent.md`
+
+**Input:**
+
+- filePath: `c:\Projects\infoshare-accenture-testerai-1026\.github\agents\exploratory-session.agent.md`
+- newString:
+
+```
+- DO NOT read `docs/ai-sessions/*` or `zgloszenia/*` unless the user names them.
+- DO NOT read or search application source code (e.g. `shopeasy-demo/`, including `app/`, `components/`, `lib/`, `prisma/`, `tests/`).
+- DO NOT store passwords or secrets in the card.
+```
+
+- oldString:
+
+```
+- DO NOT read `docs/ai-sessions/*` or `zgloszenia/*` unless the user names them.
+- DO NOT store passwords or secrets in the card.
+```
+
+
+**Result:**
+
+```
+The following files were successfully edited:
+c:\Projects\infoshare-accenture-testerai-1026\.github\agents\exploratory-session.agent.md
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **exploratory-session.agent.md**</summary>
+
+@@ lines 18-18 @@
+
+```
+read or search application source code (e.g. `shopeasy-demo/`, including `app/`, `components/`, `lib/`, `prisma/`, `tests/`).
+- DO NOT 
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+Dodałem ograniczenie w `.github/agents/exploratory-session.agent.md`: agent nie czyta ani nie przeszukuje kodu aplikacji (`shopeasy-demo`, w tym `app/`, `components/`, `lib/`, `prisma/`, `tests/`). Oczekiwane wyniki bierze z PRD, makiet, zgłoszenia lub od testera.
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list"><details>
+<summary>Tool use: **manage_todo_list**</summary>
+
+Created 4 todos
+</details></tool-use>

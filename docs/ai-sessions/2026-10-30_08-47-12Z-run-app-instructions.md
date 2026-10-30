@@ -759,50 +759,10 @@ _**User (2026-10-30 08:53:17Z)**_
 
 _**Agent (copilot/claude-haiku-5.5)**_
 
-<tool-use data-tool-type="write" data-tool-name="create_file"><details>
-<summary>Tool use: **create_file**</summary>
+<tool-use data-tool-type="generic" data-tool-name="copilot_createFile"><details>
+<summary>Tool use: **copilot_createFile**</summary>
 
 Created `untitled:plan-runShopEasyApp.prompt.md`
-
-**Input:**
-
-- content:
-
-````
-# Plan: uruchomienie aplikacji ShopEasy (shopeasy-demo)
-
-1. Zainstaluj zależności:
-   ```bash
-   cd shopeasy-demo
-   npm install
-   ```
-2. Środowisko: plik `.env` już istnieje i zostanie użyty automatycznie. Jeśli go brakuje, skopiuj `example.env` do `.env`. Zawiera `DATABASE_URL="file:./dev.db"`, `SESSION_SECRET` oraz `PAYMENT_MOCK_MODE="normal"`.
-3. Utwórz schemat bazy. Repozytorium nie zawiera folderu `prisma/migrations`, więc prawdopodobnie potrzebne jest `npx prisma db push`. Dokumentacja projektu tego nie podaje — zweryfikować, jeśli się nie powiedzie.
-   ```bash
-   npx prisma db push
-   ```
-4. Wczytaj dane testowe:
-   ```bash
-   npm run seed
-   ```
-5. Uruchom serwer deweloperski na porcie 3000:
-   ```bash
-   npm run dev -- -p 3000
-   ```
-   Aplikacja: http://localhost:3000. Port 3000 jest też domyślny dla `npm run dev`.
-
-Konto testowe z seeda: `test@shopeasy.pl` / `Test1234!`
-
-````
-
-- filePath: `untitled:plan-runShopEasyApp.prompt.md`
-
-**Result:**
-
-```
-The following files were successfully edited:
-untitled:plan-runShopEasyApp.prompt.md
-```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
@@ -850,6 +810,67 @@ _**Agent (copilot/claude-haiku-5.5)**_
 <summary>Tool use: **manage_todo_list**</summary>
 
 Created 2 todos
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **konta-testowe.md**</summary>
+
+@@ lines 6-6 @@
+
+````
+
+
+## Uruchomienie aplikacji
+
+Z katalogu `shopeasy-demo`:
+
+```bash
+cd shopeasy-demo
+npm run dev
+```
+
+Pierwsze uruchomienie wymaga wcześniej: `npm install`, `npx prisma db push`, `npx prisma generate` oraz `npm run seed`.
+
+### Gdy port 3000 jest zajęty
+
+Sprawdź, który proces go używa:
+
+```bash
+netstat -ano | findstr :3000
+```
+
+Zatrzymaj proces o wskazanym PID:
+
+```bash
+taskkill /PID <PID> /F
+```
+
+Albo uruchom aplikację na innym porcie, np. 3001:
+
+```bash
+npx next dev -p 3001
+```
+
+Wtedy aplikacja działa pod adresem http://localhost:3001/. Konto testowe pozostaje bez zmian.
+````
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+Dopisałem sekcję „Uruchomienie aplikacji” do `docs/product/konta-testowe.md`. Zawiera:
+
+- uruchomienie z katalogu `shopeasy-demo` przez `npm run dev`,
+- kroki pierwszego uruchomienia,
+- obsługę zajętego portu 3000: sprawdzenie PID przez `netstat`, zamknięcie procesu przez `taskkill` lub start na porcie 3001 przez `npx next dev -p 3001`.
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list"><details>
+<summary>Tool use: **manage_todo_list**</summary>
+
+Created 4 todos
 </details></tool-use>
 
 ---

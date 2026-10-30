@@ -46,6 +46,14 @@
 # Wiedza o projekcie
 - **ShopEasy** to webowa i mobilna aplikacja e-commerce B2C umożliwiająca klientom indywidualnym przeglądanie katalogu produktów, zarządzanie koszykiem i realizację zamówień z płatnością online.
 
+- Jeśli potrzebujesz zweryfikować coś w kodzie aplikacji:
+    - Kod źródłowy aplikacji NextJS - `./shopeasy-demo/`
+    - Zawsze potwierdź z użytkownikiem przed czytaniem kodu czy jest to odpowiednia wersja/katalog
+
+- Jeśli potrebujesz sprawdzić działanie aplikacji możesz użyć narzędzi browser:
+    - [Aplikacja Testowa i dostępy](./docs/product/konta-testowe.md)
+    - Potwierdź z użytownikiem że jest to wersja na której testujemy
+
 # Instrukcje Ładowane warunkowo 
 - czytaj do kontekstu tylko jeśli potrzebujesz do odpowiedzi:
 
@@ -54,7 +62,7 @@
 - Screenshoty/Makiety UI: 
     - [Katalog Makiet](`./docs/screenshots/*.png`)
     - [Flow ekranów](`./docs/screenshots/README.md`)
-- [Aplikacja Testowa i dostępy](./docs//product/konta-testowe.md)
+- [Aplikacja Testowa i dostępy](./docs/product/konta-testowe.md)
 
 
 # WYŁĄCZENIA - CZEGO NIE WOLNO ŁADOWAĆ DO KONTEKSTU!

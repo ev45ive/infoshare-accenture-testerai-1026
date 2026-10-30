@@ -1,0 +1,203 @@
+{
+  "workbook_dir": "docs/excel",
+  "types": {
+    "user-story": {
+      "folder": "docs/user-story",
+      "glob": "*.user-story.md",
+      "workbook": "user-stories.xlsx",
+      "key_field": "id",
+      "sheets": {
+        "main": {
+          "name": "User Stories",
+          "columns": {
+            "id": "ID",
+            "title": "Title",
+            "status": "Status",
+            "requirements": "Requirements",
+            "story": "Story",
+            "in_scope": "In scope",
+            "out_of_scope": "Out of scope",
+            "related": "Related requirements",
+            "linked": "Linked artifacts",
+            "file": "File"
+          }
+        },
+        "criteria": {
+          "name": "Acceptance Criteria",
+          "columns": {
+            "ref": "Story ID",
+            "ac": "AC",
+            "source": "Source",
+            "criterion": "Criterion"
+          }
+        },
+        "questions": {
+          "name": "Open Questions",
+          "columns": {
+            "ref": "Story ID",
+            "no": "#",
+            "question": "Question",
+            "owner": "Owner",
+            "status": "Status"
+          }
+        }
+      }
+    },
+    "test-scenario": {
+      "folder": "docs/test-scenario",
+      "glob": "*.test-scenario.md",
+      "workbook": "test-scenarios.xlsx",
+      "key_field": "id",
+      "sheets": {
+        "main": {
+          "name": "Test Scenarios",
+          "columns": {
+            "id": "ID",
+            "story": "Story ID",
+            "title": "Title",
+            "heading": "Scenario heading",
+            "status": "Status",
+            "priority": "Priority",
+            "goal": "Goal",
+            "test_data": "Test data",
+            "notes": "Notes",
+            "file": "File"
+          }
+        },
+        "covered_ac": {
+          "name": "Covered AC",
+          "columns": {
+            "ref": "Scenario ID",
+            "ac": "Acceptance criterion"
+          }
+        },
+        "preconditions": {
+          "name": "Preconditions",
+          "columns": {
+            "ref": "Scenario ID",
+            "no": "#",
+            "condition": "Condition",
+            "description": "Description"
+          }
+        },
+        "cases": {
+          "name": "Planned Test Cases",
+          "columns": {
+            "ref": "Scenario ID",
+            "tc_id": "TC ID",
+            "title": "Title",
+            "type": "Type",
+            "technique": "Technique",
+            "priority": "Priority",
+            "ac": "AC"
+          }
+        },
+        "questions": {
+          "name": "Open Questions",
+          "columns": {
+            "ref": "Scenario ID",
+            "no": "#",
+            "question": "Question",
+            "owner": "Owner",
+            "status": "Status"
+          }
+        }
+      }
+    },
+    "test-case": {
+      "folder": "docs/test-case",
+      "glob": "*.test-case.md",
+      "workbook": "test-cases.xlsx",
+      "key_field": "scenario",
+      "sheets": {
+        "main": {
+          "name": "Test Case Files",
+          "columns": {
+            "scenario": "Scenario ID",
+            "story": "Story ID",
+            "scenario_title": "Scenario title",
+            "status": "Status",
+            "file": "File"
+          }
+        },
+        "cases": {
+          "name": "Test Cases",
+          "columns": {
+            "ref": "Scenario ID",
+            "tc_id": "TC ID",
+            "title": "Title",
+            "ac": "AC",
+            "type": "Type",
+            "priority": "Priority",
+            "test_data": "Test data",
+            "preconditions": "Preconditions",
+            "postconditions": "Postconditions"
+          }
+        },
+        "steps": {
+          "name": "Steps",
+          "columns": {
+            "ref": "Scenario ID",
+            "tc_id": "TC ID",
+            "no": "#",
+            "action": "Action",
+            "expected": "Expected result",
+            "test_data": "Test data"
+          }
+        },
+        "questions": {
+          "name": "Open Questions",
+          "columns": {
+            "ref": "Scenario ID",
+            "no": "#",
+            "question": "Question",
+            "owner": "Owner",
+            "status": "Status"
+          }
+        }
+      }
+    },
+    "test-data": {
+      "folder": "docs/test-data",
+      "glob": "*.test-data.md",
+      "workbook": "test-data.xlsx",
+      "key_field": "scenario",
+      "sheets": {
+        "main": {
+          "name": "Test Data Files",
+          "columns": {
+            "scenario": "Scenario ID",
+            "story": "Story ID",
+            "scenario_title": "Scenario title",
+            "status": "Status",
+            "extra": "Extra content (Data sets section)",
+            "conventions": "Conventions",
+            "file": "File"
+          }
+        },
+        "data": {
+          "name": "Data Sets",
+          "dynamic": true,
+          "placeholders": ["Field 1", "Field 2", "Field 3"],
+          "columns": {
+            "ref": "Scenario ID",
+            "id": "ID",
+            "purpose": "Purpose",
+            "class": "Class",
+            "used_by": "Used by"
+          }
+        },
+        "questions": {
+          "name": "Open Questions",
+          "columns": {
+            "ref": "Scenario ID",
+            "no": "#",
+            "question": "Question",
+            "owner": "Owner",
+            "status": "Status"
+          }
+        }
+      }
+    }
+  }
+}

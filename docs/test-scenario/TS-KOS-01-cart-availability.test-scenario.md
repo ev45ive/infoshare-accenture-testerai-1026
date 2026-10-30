@@ -3,7 +3,7 @@ id: TS-KOS-01
 type: test-scenario
 story: US-KOS-01
 title: Cart availability for guest and registered customer
-status: draft
+status: accepted
 priority: High
 ---
 
@@ -19,6 +19,7 @@ Verify that products added to the cart by a guest and by a registered customer a
 - AC-2: guest cart items remain after page reload
 - AC-3: guest cart merged with account cart after login (resulting quantity TBD)
 - AC-4: 6th different product is rejected with the limit message
+- AC-5: guest cart with a different product merges with account cart after login
 
 ## Preconditions
 
@@ -36,19 +37,19 @@ Verify that products added to the cart by a guest and by a registered customer a
 | TC-KOS-002 | Guest cart items are still shown after page reload | positive | state transition | High | AC-2 |
 | TC-KOS-003 | Guest cart merges with account cart after login (same product) | positive | state transition | High | AC-3 |
 | TC-KOS-004 | Adding a 6th different product shows the limit message | boundary | boundary values | High | AC-4 |
-| TC-KOS-005 | Adding a 5th different product is accepted | boundary | boundary values | High | AC-4 |
-| TC-KOS-006 | Guest cart with a different product merges with account cart after login | positive | state transition | High | AC-3 |
+| TC-KOS-005 | Adding a 5th different product is accepted | boundary | boundary values | Medium | AC-4 |
+| TC-KOS-006 | Guest cart with a different product merges with account cart after login | positive | state transition | Medium | AC-5 |
 
 ## Test data
 
-- TD-KOS-01: TBD - test-data file not created yet; propose after test cases are accepted.
+- TD-KOS-01: `docs/test-data/TS-KOS-01-cart-availability.test-data.md` (draft; set-up of account cart TBD).
 
 ## Notes
 
-- Priority High: the cart limit (BR-01) and cart persistence are core rules that gate the checkout flow.
+- Priority High for TC-KOS-001 to 004: cart limit (BR-01), persistence and merge gate the checkout flow. Medium for TC-KOS-005 and 006: lower impact than a lost cart (boundary on the accepted side; merge of different products).
 - AC-3 expected result is incomplete: resulting quantity is TBD (story open questions 1 and 2). TC-KOS-003 cannot be finalised until these are answered.
 - TC-KOS-005 is added to check the boundary on the accepted side of the limit (5 products), not only the rejected side.
-- TC-KOS-006 covers merging two different products (no quantity change), as requested in feedback. Quantity-sum case stays in TC-KOS-003 and remains TBD.
+- TC-KOS-006 covers merging two different products (no quantity change), mapped to story AC-5 (user answer). Quantity-sum case stays in TC-KOS-003 and remains TBD.
 - Out of scope (per story): discount codes (KOS-07), stock change alert before checkout (KOS-08), checkout steps (CHK-01 to CHK-11).
 - Cart persistence for guests is not covered by KOS-02 (registered customers only); see open questions.
 

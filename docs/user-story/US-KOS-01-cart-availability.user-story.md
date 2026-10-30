@@ -2,7 +2,7 @@
 id: US-KOS-01
 type: user-story
 title: Cart availability for guest and registered customer
-status: draft
+status: accepted
 requirements: [KOS-01, KOS-02, KOS-04, KOS-05, BR-01]
 ---
 
@@ -10,7 +10,7 @@ requirements: [KOS-01, KOS-02, KOS-04, KOS-05, BR-01]
 
 ## Story
 
-As a registered customer, I want my cart items to stay available across sessions and after I log in, so that I can continue my purchase.
+As a customer (guest or registered), I want my cart items to be kept after a page reload, across sessions for a registered account, and after I log in, so that I can continue my purchase.
 
 ## Acceptance criteria
 
@@ -18,6 +18,7 @@ As a registered customer, I want my cart items to stay available across sessions
 - **AC-2** [KOS-02, user answer] Given a guest has items in the cart, When the page is reloaded, Then the guest cart items are still shown.
 - **AC-3** [KOS-02, user answer] Given a guest has added SoundMax X3 and the account already has SoundMax X3 in the cart, When the guest logs in, Then the carts are merged and the resulting quantity for SoundMax X3 is TBD.
 - **AC-4** [KOS-04, KOS-05, BR-01] Given the cart contains 5 different products, When the customer adds a 6th different product, Then the message "Osiągnięto limit pozycji dla konta standardowego (5). Usuń produkt lub przejdź na konto Premium." is shown.
+- **AC-5** [user answer] Given a guest has a product in the cart and the account has a different product in the cart, When the guest logs in, Then the carts are merged and both products are in the resulting cart.
 
 ## Scope
 
@@ -42,7 +43,7 @@ As a registered customer, I want my cart items to stay available across sessions
 
 ## Linked artifacts
 
-- Scenarios: TBD
+- Scenarios: TS-KOS-01-cart-availability.test-scenario.md
 
 ## Open questions
 

@@ -1,7 +1,7 @@
 ---
 description: "Use when running an interactive manual exploratory testing session for ShopEasy: sesja eksploracyjna, charter, eksploracja, karta sesji, bugi z sesji, debriefing. Guides the tester step by step and records the session card in docs/exploratory-sessions/."
 name: "Exploratory Session"
-tools: [read, edit, search, vscode_askQuestions]
+tools: [vscode/askQuestions, read, edit, search]
 argument-hint: "Charter lub obszar do eksploracji"
 user-invocable: true
 ---

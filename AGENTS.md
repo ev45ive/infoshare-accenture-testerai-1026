@@ -57,6 +57,8 @@
 # Instrukcje Ładowane warunkowo 
 - czytaj do kontekstu tylko jeśli potrzebujesz do odpowiedzi:
 
+- **Przeszukiwanie dokumentacji (PRD, makiety, konta testowe) rób przez subagenta [Documentation Explorer](./.github/agents/documentation-explorer.agent.md)** — działa we własnym oknie kontekstu i zwraca gotowe informacje ze źródłem (plik, kod/numer, cytat lub podsumowanie) oraz kody powiązanych elementów. Nie czytaj tych plików bezpośrednio, chyba że użytkownik o to poprosi.
+
 - [Product Requirements Document (PRD) V1.0 Draft](./docs/product/product-requirements.md)
     - Wersja "V1.0 Draft" jest aktualną wersją
 - Screenshoty/Makiety UI: 

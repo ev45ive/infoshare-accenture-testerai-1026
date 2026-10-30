@@ -1883,3 +1883,58 @@ _**Agent (copilot/claude-haiku-5.5)**_
 
 Created 4 todos
 </details></tool-use>
+
+---
+
+_**User (2026-10-30 10:21:29Z)**_
+
+agent musi zawsze załadować skill nim rozpocznie prace
+
+---
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="generic" data-tool-name="replace_string_in_file"><details>
+<summary>Tool use: **replace_string_in_file**</summary>
+
+Replacing 1 lines with 1 lines in `exploratory-session.agent.md`
+
+**Input:**
+
+- filePath: `c:\Projects\infoshare-accenture-testerai-1026\.github\agents\exploratory-session.agent.md`
+- newString: `MUST read the full [exploratory-session skill](../skills/exploratory-session/SKILL.md) with the `read` tool as the first action in every session, before asking any question, creating any file, or running any command. Do not start the session until the skill is loaded, then follow its procedure and card template.`
+- oldString: `Before starting, load the procedure and the card template from [exploratory-session skill](../skills/exploratory-session/SKILL.md) and follow it.`
+
+**Result:**
+
+```
+The following files were successfully edited:
+c:\Projects\infoshare-accenture-testerai-1026\.github\agents\exploratory-session.agent.md
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **exploratory-session.agent.md**</summary>
+
+@@ lines 11-11 @@
+
+```
+MUST read the full [exploratory-session skill](../skills/exploratory-session/SKILL.md) with the `read` tool as the first action in every session, before asking any question, creating any file, or running any command. Do not start the session until the skill is loaded, then follow its procedure and card template
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+Zaktualizowałem `.github/agents/exploratory-session.agent.md`. Agent ma teraz obowiązek odczytać skill narzędziem `read` jako pierwszą czynność, zanim zada pytanie, utworzy plik lub uruchomi komendę.
+
+Agent ładuje skill na podstawie instrukcji w ciele pliku. Nie zweryfikowałem tego w działającej sesji, więc sprawdź to przy pierwszym uruchomieniu.
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list"><details>
+<summary>Tool use: **manage_todo_list**</summary>
+
+Added 2 todos
+</details></tool-use>

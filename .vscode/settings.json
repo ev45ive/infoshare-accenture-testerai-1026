@@ -1,4 +1,10 @@
 {
   "chat.editor.preferCopilotHarness": false,
-  "specstory.cloudSync.enabled": "always"
+  "specstory.cloudSync.enabled": "always",
+  "chat.tools.terminal.autoApprove": {
+    "/^powershell -NoProfile -Command \"Get-Date -Format HH:mm\"$/": {
+      "approve": true,
+      "matchCommandLine": true
+    }
+  }
 }

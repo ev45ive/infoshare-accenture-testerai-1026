@@ -4,6 +4,7 @@
 **Aplikacja:** http://localhost:3000/  
 
 **Konto testowe:** `test@shopeasy.pl` / `Test1234!`
+**Imię i nazwisko (wyświetlane w aplikacji):** Jan Testowy
 
 ## Uruchomienie aplikacji
 

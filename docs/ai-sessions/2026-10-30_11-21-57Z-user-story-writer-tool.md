@@ -12,18 +12,48 @@ _**User (2026-10-30 11:22:18Z)**_
 
 _**Agent (copilot/claude-haiku-5.5)**_
 
-<tool-use data-tool-type="generic" data-tool-name="copilot_listDirectory"><details>
-<summary>Tool use: **copilot_listDirectory**</summary>
+<think><details><summary>Thought Process</summary>
+Nie podano, nad którym user story pracować. W `docs/user-story/` istnieje `US-KOS-01-cart-availability.user-story.md` (z artefaktami w `docs/test-scenario/`), więc potrzebuję kilku odpowiedzi. 
+
+URL produktu potwierdzony w `docs/screenshots/README.md`. Mam dwa punkty do decyzji w scenariuszu.  
+
+Plik `TC` jeszcze nie istnieje. Oczekiwane rezultaty muszą mieć źródło, więc sprawdzam opisy ekranów koszyka w `docs/screenshots/README.md`.
+</details></think>
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="generic" data-tool-name="list_dir"><details>
+<summary>Tool use: **list_dir**</summary>
 
 Read `user-story`
+
+**Input:**
+
+- path: `c:\Projects\infoshare-accenture-testerai-1026\docs\user-story`
+
+**Result:**
+
+```
+US-KOS-01-cart-availability.user-story.md
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
 
-<tool-use data-tool-type="generic" data-tool-name="copilot_listDirectory"><details>
-<summary>Tool use: **copilot_listDirectory**</summary>
+<tool-use data-tool-type="generic" data-tool-name="list_dir"><details>
+<summary>Tool use: **list_dir**</summary>
 
 Read `test-scenario`
+
+**Input:**
+
+- path: `c:\Projects\infoshare-accenture-testerai-1026\docs\test-scenario`
+
+**Result:**
+
+```
+TS-KOS-01-cart-availability.test-scenario.md
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
@@ -36,6 +66,86 @@ _**Agent (copilot/claude-haiku-5.5)**_
 <summary>Tool use: **vscode_askQuestions**</summary>
 
 Analyzing your answers...
+
+**Input:**
+
+- questions:
+
+```
+[
+  {
+    "allowFreeformInput": true,
+    "header": "wejscie",
+    "options": [
+      {
+        "description": "Istniejące: docs/user-story/US-KOS-01-cart-availability.user-story.md",
+        "label": "US-KOS-01 (cart-availability)",
+        "recommended": true
+      },
+      {
+        "description": "Podam opis funkcjonalności w czacie",
+        "label": "Nowe user story"
+      }
+    ],
+    "question": "Które user story?"
+  },
+  {
+    "allowFreeformInput": false,
+    "header": "praca",
+    "options": [
+      {
+        "description": "Przegląd artefaktu i rodzica",
+        "label": "review",
+        "recommended": true
+      },
+      {
+        "description": "Zmiana istniejącego artefaktu",
+        "label": "edit"
+      },
+      {
+        "description": "Utworzenie nowego artefaktu",
+        "label": "create"
+      }
+    ],
+    "question": "Jaki rodzaj pracy?"
+  },
+  {
+    "allowFreeformInput": false,
+    "header": "typ",
+    "options": [
+      {
+        "description": "Tylko historyjka",
+        "label": "user-story"
+      },
+      {
+        "description": "Scenariusze testowe",
+        "label": "test-scenario",
+        "recommended": true
+      },
+      {
+        "description": "Przypadki testowe",
+        "label": "test-case"
+      },
+      {
+        "description": "Dane testowe",
+        "label": "test-data"
+      },
+      {
+        "description": "US, TS, TC, TD",
+        "label": "cały łańcuch"
+      }
+    ],
+    "question": "Który typ artefaktu (lub cały łańcuch)?"
+  }
+]
+```
+
+
+**Result:**
+
+```
+{"answers":{"wejscie":{"selected":["US-KOS-01 (cart-availability)"],"freeText":null,"skipped":false},"praca":{"selected":["edit"],"freeText":null,"skipped":false},"typ":{"selected":["cały łańcuch"],"freeText":null,"skipped":false}}}
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
@@ -44,26 +154,164 @@ Wybrano: US-KOS-01, edycja, cały łańcuch. Ładuję procedurę edycji i aktual
 
 _**Agent (copilot/claude-haiku-5.5)**_
 
-<tool-use data-tool-type="generic" data-tool-name="copilot_readFile"><details>
-<summary>Tool use: **copilot_readFile**</summary>
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
 
 Read skill `user-story-writer`: `procedure-create-edit.md`
+
+**Input:**
+
+- endLine: `400`
+- filePath: `c:\Projects\infoshare-accenture-testerai-1026\.github\skills\user-story-writer\references\procedure-create-edit.md`
+- startLine: `1`
+
+**Result:**
+
+```
+# Procedura: tworzenie i zmiana artefaktu (iteracyjnie)
+
+## Zasady
+
+- Jedna iteracja = jedna sekcja lub grupa sekcji. Iteracja 0 = szkic całego artefaktu.
+- Plik na dysku jest źródłem prawdy. Zapisuj każdą zmianę od razu po jej przygotowaniu (po potwierdzeniu ścieżki), bez wcześniejszego pokazywania treści w czacie.
+- Nie wklejaj w czacie treści artefaktu ani jego sekcji. Po zapisie podaj: 1-3 zdania o tym, co dodano lub zmieniono (np. numery AC, ID przypadków), link do pliku i pytanie o akceptację.
+- Poprawki wprowadzaj bezpośrednio w pliku.
+- Każda runda pytań to jedno wywołanie `vscode_askQuestions`:
+  - każde pytanie ma rekomendowaną odpowiedź domyślną wynikającą ze źródeł
+  - maksymalnie 5-6 pytań na rundę
+  - wartość nieznana ze źródeł: pytanie bez rekomendacji, z opcją "TBD - odroczyć"
+- Wartości, których nie ma w źródłach, nie trafiają do artefaktu inaczej niż jako `TBD`.
+
+## Iteracja 0: szkic wstępny
+
+1. Cel: wypełnij szablon tym, co wynika z kontekstu (wejście użytkownika, rozmowa, istniejące artefakty). Resztę oznacz `TBD`.
+2. Źródła: zaproponuj listę (pytanie wielokrotnego wyboru z sugerowanym zaznaczeniem wg tabeli na końcu). Przeczytaj tylko wybrane.
+3. Pytania: runda pytań z domyślnymi odpowiedziami (rola, zakres, nieznane wartości).
+4. Ścieżka: zapytaj o potwierdzenie. Propozycja zgodna ze wzorcem `./docs/<typ>/<id>-<short-name>.<typ>.md` jako opcja rekomendowana; inna ścieżka przez wolny tekst. Jeśli plik już istnieje, ostrzeż i zapytaj, czy edytować istniejący.
+5. Zapisz od razu cały szkic do pliku ze `status: draft` (nieznane wartości jako `TBD`).
+6. Podsumuj w czacie (1-3 zdania, link do pliku) i zapytaj o akceptację lub poprawki (`vscode_askQuestions`: "Zaakceptuj" jako rekomendowane, "Popraw" z wolnym tekstem). Przy "Popraw" zmień plik zgodnie z uwagą i podsumuj zmianę.
+
+## Iteracja n: rozwijanie sekcji
+
+Powtarzaj dla kolejnych sekcji (kolejność wg tabeli), aż wszystkie `TBD` są rozstrzygnięte albo świadomie odroczone.
+… (output truncated)
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
 
-<tool-use data-tool-type="generic" data-tool-name="copilot_readFile"><details>
-<summary>Tool use: **copilot_readFile**</summary>
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
 
 Read `US-KOS-01-cart-availability.user-story.md`
+
+**Input:**
+
+- endLine: `400`
+- filePath: `c:\Projects\infoshare-accenture-testerai-1026\docs\user-story\US-KOS-01-cart-availability.user-story.md`
+- startLine: `1`
+
+**Result:**
+
+```
+---
+id: US-KOS-01
+type: user-story
+title: Cart availability for guest and registered customer
+status: draft
+requirements: [KOS-01, KOS-02, KOS-04, KOS-05, BR-01]
+---
+
+# US-KOS-01 - Cart availability for guest and registered customer
+
+## Story
+
+As a registered customer, I want my cart items to stay available across sessions and after I log in, so that I can continue my purchase.
+
+## Acceptance criteria
+
+- **AC-1** [KOS-01] Given a guest on an available product page, When the guest clicks "Dodaj do koszyka", Then the product is added to the cart.
+- **AC-2** [KOS-02, user answer] Given a guest has items in the cart, When the page is reloaded, Then the guest cart items are still shown.
+- **AC-3** [KOS-02, user answer] Given a guest has added SoundMax X3 and the account already has SoundMax X3 in the cart, When the guest logs in, Then the carts are merged and the resulting quantity for SoundMax X3 is TBD.
+- **AC-4** [KOS-04, KOS-05, BR-01] Given the cart contains 5 different products, When the customer adds a 6th different product, Then the message "Osiągnięto limit pozycji dla konta standardowego (5). Usuń produkt lub przejdź na konto Premium." is shown.
+
+## Scope
+
+**In scope**
+- Adding products to the cart as a guest.
+- Keeping the cart between sessions for a registered customer.
+- Merging the guest cart with the account cart after login.
+- Limit of 5 different products.
+
+**Out of scope**
+- Discount codes (KOS-07).
+- Stock change alert before checkout (KOS-08).
+- Checkout steps (CHK-01 to CHK-11).
+
+## Related requirements
+
+- KOS-01: guest and registered customer can add products to the cart
+- KOS-02: cart of a registered customer persists between sessions
+- KOS-04: limit of 5 different products for a standard account
+- KOS-05: error message for the 6th product
+- BR-01: max 5 different products in the cart
+
+## Linked artifacts
+
+- Scenarios: TBD
+
+## Open questions
+
+| # | Question | Owner | Status |
+|---|---|---|---|
+| 1 |
+… (output truncated)
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
 
-<tool-use data-tool-type="generic" data-tool-name="copilot_readFile"><details>
-<summary>Tool use: **copilot_readFile**</summary>
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
 
 Read skill `user-story-writer`: `user-story.md`
+
+**Input:**
+
+- endLine: `400`
+- filePath: `c:\Projects\infoshare-accenture-testerai-1026\.github\skills\user-story-writer\references\checklists\user-story.md`
+- startLine: `1`
+
+**Result:**
+
+```
+# Checklista: user story
+
+## Dobre praktyki
+
+- Format `As a <role>, I want <capability>, so that <benefit>`; konkretna rola (nie "user").
+- Benefit opisuje wartość, nie powtarza akcji.
+- Jedna historyjka = jedna zdolność (INVEST: Independent, Negotiable, Valuable, Estimable, Small, Testable).
+- Kryteria akceptacji (AC):
+  - testowalne i jednoznaczne, w formacie Given/When/Then
+  - każde z ID (`AC-n`) i źródłem (ID wymagania PRD, reguła BR, screenshot)
+  - pokrywają ścieżkę pozytywną, negatywną i brzegi wynikające z reguł
+- Dosłowne komunikaty i wartości tylko wtedy, gdy są w źródle; w przeciwnym razie `TBD`.
+- Scope: `In scope` i `Out of scope` wypełnione (co należy do innych story).
+- `Related requirements` wylicza ID z PRD pokrywane przez story; każde ID ma co najmniej jedno AC.
+- `Open questions`: każde `TBD` i każda rozbieżność źródeł ma wpis z właścicielem (kto może odpowiedzieć).
+- Brak rozwiązań implementacyjnych (technologia, struktura API).
+
+## Złe praktyki
+
+- Story jako zadanie techniczne albo opis ekranu.
+- Kilka ról lub celów w jednej historyjce ("i" łączące niezależne funkcje).
+- AC ze słowami bez miary ("szybko", "intuicyjnie", "poprawnie").
+- Wymyślone reguły, limity i teksty komunikatów.
+- AC dublujące się lub sprzeczne z PRD.
+- Pominięta rozbieżność między PRD a UI.
+- AC będące powtórzeniem treści story.
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
@@ -72,10 +320,42 @@ Plik US-KOS-01 jest w statusie `draft` i ma otwarte pytania. Sprawdzam wymagania
 
 _**Agent (copilot/claude-haiku-5.5)**_
 
-<tool-use data-tool-type="generic" data-tool-name="copilot_findTextInFiles"><details>
-<summary>Tool use: **copilot_findTextInFiles**</summary>
+<tool-use data-tool-type="search" data-tool-name="grep_search"><details>
+<summary>Tool use: **grep_search**</summary>
 
 Searched for regex `KOS-|BR-0|koszyk|Koszyk` (`**/docs/product/product-requirements.md`), 32 results
+
+**Input:**
+
+- includePattern: `docs/product/product-requirements.md`
+- isRegexp: `true`
+- query: `KOS-|BR-0|koszyk|Koszyk`
+
+**Result:**
+
+```
+Found 32 matches in 1 file for "KOS-|BR-0|koszyk|Koszyk"
+
+docs/product/product-requirements.md
+11:## **ShopEasy** to webowa i mobilna aplikacja e-commerce B2C umożliwiająca klientom indywidualnym przeglądanie katalogu produktów, zarządzanie koszykiem i realizację zamówień z płatnością online.
+26:| **Gość**                  | niezalogowany użytkownik; może przeglądać katalog i dodawać do koszyka |
+38:- Koszyk zakupowy
+94:**KAT-04** Strona produktu zawiera: zdjęcia (galeria, min. 1), nazwę, opis, cenę brutto, dostępność, warianty (rozmiar/kolor jeśli dotyczy), przycisk "Dodaj do koszyka".
+96:**KAT-05** Produkt niedostępny (stock = 0): przycisk "Dodaj do koszyka" jest nieaktywny, wyświetlana jest informacja "Chwilowo niedostępny".
+100:### 5.3 Koszyk
+102:**KOS-01** Gość i zalogowany klient mogą dodawać produkty do koszyka.
+104:**KOS-02** Koszyk zalogowanego klienta jest trwały (zachowany między sesjami).
+106:**KOS-03** Klient może: zmienić ilość pozycji, usunąć pozycję, wyczyścić koszyk.
+108:**KOS-04** Limit pozycji w koszyku dla konta standardowego: **max 5 różnych produktów** (nie sztuk).
+110:**KOS-05** Próba dodania 6. produktu skutkuje komunikatem błędu: "Osiągnięto limit pozycji dla konta standardowego (5). Usuń produkt lub przejdź na konto Premium."
+112:**KOS-06** Koszyk wyświetla: listę pozycji z ilością i ceną jednostkową, łączną kwotę netto i brutto, pole kodu rabatowego.
+114:**KOS-07** Pole kodu rabatowego przyjmuje kod i wyświetla komunikat o zastosowanym rabacie lub błędzie. (Logika kodów rabatowych: poza zakresem fazy 1.)
+116:**KOS-08** Jeśli produkt w koszyku stał się niedostępny przed finalizacją zamówienia, system informuje o tym przed przejściem do checkout.
+141:**CHK-07** Sesja płatności wygasa po **15 minutach** od wejścia na krok 2. Po upływie czasu system wyświetla komunikat i przekierowuje do koszyka.
+143:**CHK-08** Przy błędzie płatności system wyświetla komunikat z przyczyną i umożliwia ponowną próbę (max 3 próby bez powrotu do koszyka).
+188:| BR
+… (output truncated)
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
@@ -88,6 +368,86 @@ _**Agent (copilot/claude-haiku-5.5)**_
 <summary>Tool use: **vscode_askQuestions**</summary>
 
 Analyzing your answers...
+
+**Input:**
+
+- questions:
+
+```
+[
+  {
+    "allowFreeformInput": true,
+    "header": "sciezka",
+    "options": [
+      {
+        "description": "Znaleziony plik, edycja istniejącego",
+        "label": "docs/user-story/US-KOS-01-cart-availability.user-story.md",
+        "recommended": true
+      }
+    ],
+    "question": "Potwierdzasz ścieżkę artefaktu do edycji?"
+  },
+  {
+    "allowFreeformInput": true,
+    "header": "rola",
+    "options": [
+      {
+        "description": "Zgodnie z checklistą: jedna rola w historyjce. AC-1 (gość) i AC-2 (gość po przeładowaniu) trafiają do nowej story.",
+        "label": "Rozdzielić: US-KOS-01 dla zalogowanego klienta, osobna story dla gościa",
+        "recommended": true
+      },
+      {
+        "description": "Zmienić sekcję Story i tytuł na dwie role. Łamie zasadę jednej roli.",
+        "label": "Zostawić jedną story dla gościa i zalogowanego"
+      },
+      {
+        "description": "Zostawić obecny zapis do decyzji",
+        "label": "TBD - odroczyć"
+      }
+    ],
+    "question": "Story opisuje zalogowanego klienta, ale AC-1 i AC-2 dotyczą gościa. Jak to rozwiązać?"
+  },
+  {
+    "allowFreeformInput": true,
+    "header": "ac23",
+    "options": [
+      {
+        "description": "AC-2 i AC-3 nie są w PRD (KOS-02 dotyczy tylko zalogowanego). Pozostają do potwierdzenia przez PO.",
+        "label": "Zostawić z oznaczeniem źródła 'user answer' i wpisem w Open questions",
+        "recommended": true
+      },
+      {
+        "description": "Usunąć AC-2 i AC-3 z pliku, zachować w Open questions",
+        "label": "Usunąć do czasu potwierdzenia przez PO"
+      }
+    ],
+    "question": "Jak potraktować AC-2 i AC-3, których źródłem jest odpowiedź użytkownika, a nie PRD?"
+  },
+  {
+    "allowFreeformInput": true,
+    "header": "linked",
+    "options": [
+      {
+        "description": "Plik scenariusza już istnieje w docs/test-scenario/, zamiast TBD",
+        "label": "Wpisać TS-KOS-01-cart-availability.test-scenario.md",
+        "recommended": true
+      },
+      {
+        "description": "Nie łączyć jeszcze z istniejącym scenariuszem",
+        "label": "Zostawić TBD"
+      }
+    ],
+    "question": "Sekcja Linked artifacts ma 'Scenarios: TBD', a istnieje TS-KOS-01. Uzupełnić?"
+  }
+]
+```
+
+
+**Result:**
+
+```
+{"answers":{"sciezka":{"selected":["docs/user-story/US-KOS-01-cart-availability.user-story.md"],"freeText":null,"skipped":false},"rola":{"selected":["Zostawić jedną story dla gościa i zalogowanego"],"freeText":null,"skipped":false},"ac23":{"selected":["Zostawić z oznaczeniem źródła 'user answer' i wpisem w Open questions"],"freeText":null,"skipped":false},"linked":{"selected":["Wpisać TS-KOS-01-cart-availability.test-scenario.md"],"freeText":null,"skipped":false}}}
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
@@ -118,6 +478,38 @@ _**Agent (copilot/claude-haiku-5.5)**_
 <summary>Tool use: **vscode_askQuestions**</summary>
 
 Analyzing your answers...
+
+**Input:**
+
+- questions:
+
+```
+[
+  {
+    "allowFreeformInput": true,
+    "header": "akceptacja",
+    "options": [
+      {
+        "description": "Przechodzimy do TS-KOS-01",
+        "label": "Zaakceptuj",
+        "recommended": true
+      },
+      {
+        "description": "Wpisz uwagę do poprawki",
+        "label": "Popraw"
+      }
+    ],
+    "question": "Zaakceptujesz zmianę w US-KOS-01 (Story, Linked artifacts)? Uwaga: checklista zaleca jedną rolę w historyjce, wybrałeś wariant z dwiema rolami."
+  }
+]
+```
+
+
+**Result:**
+
+```
+{"answers":{"akceptacja":{"selected":["Zaakceptuj"],"freeText":null,"skipped":false}}}
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
@@ -126,18 +518,102 @@ Iteracja zaakceptowana. Przechodzę do scenariusza testowego: wczytuję checklis
 
 _**Agent (copilot/claude-haiku-5.5)**_
 
-<tool-use data-tool-type="generic" data-tool-name="copilot_readFile"><details>
-<summary>Tool use: **copilot_readFile**</summary>
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
 
 Read `TS-KOS-01-cart-availability.test-scenario.md`
+
+**Input:**
+
+- endLine: `300`
+- filePath: `c:\Projects\infoshare-accenture-testerai-1026\docs\test-scenario\TS-KOS-01-cart-availability.test-scenario.md`
+- startLine: `1`
+
+**Result:**
+
+```
+---
+id: TS-KOS-01
+type: test-scenario
+story: US-KOS-01
+title: Cart availability for guest and registered customer
+status: draft
+priority: High
+---
+
+# TS-KOS-01 - Customer keeps cart items across page reload, login and the 5-product limit
+
+## Goal
+
+Verify that products added to the cart by a guest and by a registered customer are kept, that the carts are merged after login, and that the 5-different-products limit is enforced with the defined message. Cart items are the entry point to checkout, so a lost or silently changed cart directly blocks the purchase.
+
+## Covered acceptance criteria
+
+- AC-1: guest adds a product from an available product page
+- AC-2: guest cart items remain after page reload
+- AC-3: guest cart merged with account cart after login (resulting quantity TBD)
+- AC-4: 6th different product is rejected with the limit message
+
+## Preconditions
+
+| # | Condition | Description |
+|---|---|---|
+| 1 | System | TBD (OS, browser) |
+| 2 | Application | http://localhost:3000 is loaded; product page /products/sluchawki-soundmax-x3 is available (stock > 0) |
+| 3 | User | Guest (not logged in) for AC-1 and AC-2; registered customer with an existing cart for AC-3 and AC-4 (test account per konta-testowe.md) |
+
+## Planned test cases
+
+| TC ID | Title | Type | Technique | Priority | AC |
+|---|---|---|---|---|---|
+| TC-KOS-001 | Guest adds an available product to the cart | positive | equivalence classes | High | AC-1 |
+| TC-KOS-002 | Guest cart items are still shown after page reload | positive | state transition | High | AC-2 |
+| TC-KOS-003 | Guest cart merges with account cart after login (same product) | positive | state transition | High | AC-3 |
+| TC-KOS-004 | Adding a 6th different product shows the limit message | boundary | boundary values | High | AC-4 |
+| TC-KOS-005 | Adding a 5th different product is accepted | boundary | boundary values | High | AC-4 |
+| TC-KOS-006 | Guest cart with a different product merges with acco
+… (output truncated)
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
 
-<tool-use data-tool-type="generic" data-tool-name="copilot_readFile"><details>
-<summary>Tool use: **copilot_readFile**</summary>
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
 
 Read skill `user-story-writer`: `test-scenario.md`
+
+**Input:**
+
+- endLine: `300`
+- filePath: `c:\Projects\infoshare-accenture-testerai-1026\.github\skills\user-story-writer\references\checklists\test-scenario.md`
+- startLine: `1`
+
+**Result:**
+
+```
+# Checklista: scenariusz testowy
+
+## Dobre praktyki
+
+- Tytuł opisuje cel użytkownika lub ścieżkę, nie pojedynczy test.
+- `Covered acceptance criteria` odwołuje się do ID AC ze story; każde AC ze story jest pokryte przez co najmniej jeden scenariusz (albo świadomie wskazane jako niepokryte).
+- `Preconditions` opisują stan (system, dane, konto, adres aplikacji), nie kroki.
+- `Planned test cases`: tabela z ID, tytułem, typem (positive, negative, boundary), techniką projektowania (klasy równoważności, wartości brzegowe, tablica decyzyjna, przejścia stanów), priorytetem i AC.
+- Priorytet uzasadniony ryzykiem i wpływem biznesowym.
+- Jest ścieżka pozytywna i negatywna; brzegi tam, gdzie reguły mają progi.
+- Jawnie opisane granice (co poza scenariuszem).
+- Nieznane wartości jako `TBD` z wpisem w `Open questions`.
+
+## Złe praktyki
+
+- Szczegółowe kroki w scenariuszu (należą do przypadków testowych).
+- Scenariusz równy jednemu przypadkowi.
+- Dublowanie pokrycia tych samych AC bez powodu.
+- AC bez żadnego przypadku.
+- Priorytet bez uzasadnienia lub wszystko "High".
+- Konkretne dane wejściowe w scenariuszu (należą do test-data).
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
@@ -146,10 +622,49 @@ Przed pytaniami sprawdzam, czy URL produktu z Preconditions i konto testowe maj�
 
 _**Agent (copilot/claude-haiku-5.5)**_
 
-<tool-use data-tool-type="generic" data-tool-name="copilot_findTextInFiles"><details>
-<summary>Tool use: **copilot_findTextInFiles**</summary>
+<tool-use data-tool-type="search" data-tool-name="grep_search"><details>
+<summary>Tool use: **grep_search**</summary>
 
 Searched for regex `soundmax|sluchawki|/products/|konto|Jan Testowy|Premium|standardow` (`**/docs/{product,screenshots}/**`), 25 results
+
+**Input:**
+
+- includePattern: `docs/{product,screenshots}/**`
+- isRegexp: `true`
+- query: `soundmax|sluchawki|/products/|konto|Jan Testowy|Premium|standardow`
+
+**Result:**
+
+```
+Found 25 matches in 3 files for "soundmax|sluchawki|/products/|konto|Jan Testowy|Premium|standardow"
+
+docs/product/konta-testowe.md
+6:**Konto testowe:** `test@shopeasy.pl` / `Test1234!`
+39:Wtedy aplikacja działa pod adresem http://localhost:3001/. Konto testowe pozostaje bez zmian.
+
+docs/product/product-requirements.md
+40:- Konto użytkownika (profil, historia zamówień)
+60:**REG-01** Użytkownik może zarejestrować konto podając: imię, nazwisko, adres e-mail, hasło, potwierdzenie hasła.
+68:**REG-03** Po rejestracji system wysyła e-mail weryfikacyjny. Konto jest aktywne dopiero po kliknięciu linku.
+72:**REG-05** Po 5 nieudanych próbach logowania konto zostaje tymczasowo zablokowane na 15 minut.
+108:**KOS-04** Limit pozycji w koszyku dla konta standardowego: **max 5 różnych produktów** (nie sztuk).
+110:**KOS-05** Próba dodania 6. produktu skutkuje komunikatem błędu: "Osiągnięto limit pozycji dla konta standardowego (5). Usuń produkt lub przejdź na konto Premium."
+159:### 5.5 Konto użytkownika
+161:**USR-01** Sekcja "Moje konto" zawiera: Profil, Historia zamówień, Program lojalnościowy.
+188:| BR-01 | Max 5 różnych produktów w koszyku dla konta standardowego |
+192:| BR-05 | Po 5 nieudanych logowaniach konto blokowane na 15 minut   |
+279:### Konto użytkownika
+283:| S-14 | Moje konto — Profil                | Dane osobowe, edycja, zmiana hasła                |
+284:| S-15 | Moje konto — Historia zamówień     | Lista zamówień z statusami                        |
+285:| S-16 | Moje konto — Szczegół zamówienia   | Pełne dane zamówienia, historia statusów          |
+286:| S-17 | Moje konto — Program lojalnościowy | Saldo punktów, historia, regulamin (niekompletny) |
+307:| Konto zablokowane                           | 5 nieudanych logowań | Komunikat z informacją o blokadzie i czasie odblokowania            |
+
+docs/screenshots/README.md
+4:**Konto testowe:** `test@shopeasy.pl` / `Test1234!`
+16:     └─ [/products/:slug]       →  05-s1-product-detail.png  /  06-s1-product-unavailable.p
+… (output truncated)
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
@@ -162,6 +677,58 @@ _**Agent (copilot/claude-haiku-5.5)**_
 <summary>Tool use: **vscode_askQuestions**</summary>
 
 Analyzing your answers...
+
+**Input:**
+
+- questions:
+
+```
+[
+  {
+    "allowFreeformInput": true,
+    "header": "tc006",
+    "options": [
+      {
+        "description": "Dopisać do story AC-5 (różne produkty w koszyku gościa i konta, user answer) i zmapować TC-KOS-006 na AC-5. Story i scenariusz zostaną zmienione.",
+        "label": "Dodać AC-5 do story, TC-KOS-006 na AC-5",
+        "recommended": true
+      },
+      {
+        "description": "Usunąć TC-KOS-006 z zakresu, bo AC-3 dotyczy tylko tego samego produktu",
+        "label": "Usunąć TC-KOS-006"
+      },
+      {
+        "description": "Odroczyć decyzję",
+        "label": "TBD - odroczyć"
+      }
+    ],
+    "question": "TC-KOS-006 (różne produkty przy scaleniu) mapuje się na AC-3, ale AC-3 dotyczy tylko tego samego produktu. Co zrobić?"
+  },
+  {
+    "allowFreeformInput": true,
+    "header": "priorytet",
+    "options": [
+      {
+        "description": "TC-KOS-001..004 High (core: dodanie, trwałość, scalanie, limit). TC-KOS-005 i 006 Medium: granica akceptacji i scalanie różnych produktów mają niższy wpływ niż utrata koszyka. Uzasadnienie w Notes.",
+        "label": "Obniżyć TC-KOS-005 i 006 do Medium",
+        "recommended": true
+      },
+      {
+        "description": "Zostawić wszystkie High",
+        "label": "Zostawić wszystkie High"
+      }
+    ],
+    "question": "Wszystkie przypadki mają priorytet High bez zróżnicowania. Jak to skorygować?"
+  }
+]
+```
+
+
+**Result:**
+
+```
+{"answers":{"tc006":{"selected":["Dodać AC-5 do story, TC-KOS-006 na AC-5"],"freeText":null,"skipped":false},"priorytet":{"selected":["Obniżyć TC-KOS-005 i 006 do Medium"],"freeText":null,"skipped":false}}}
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
@@ -236,6 +803,38 @@ _**Agent (copilot/claude-haiku-5.5)**_
 <summary>Tool use: **vscode_askQuestions**</summary>
 
 Analyzing your answers...
+
+**Input:**
+
+- questions:
+
+```
+[
+  {
+    "allowFreeformInput": true,
+    "header": "akceptacja_ts",
+    "options": [
+      {
+        "description": "Przechodzimy do przypadków testowych TC-KOS",
+        "label": "Zaakceptuj",
+        "recommended": true
+      },
+      {
+        "description": "Wpisz uwagę do poprawki",
+        "label": "Popraw"
+      }
+    ],
+    "question": "Zaakceptujesz zmiany w TS-KOS-01 (AC-5, mapowanie TC-KOS-006, priorytety Medium)? Następny krok: test-case."
+  }
+]
+```
+
+
+**Result:**
+
+```
+{"answers":{"akceptacja_ts":{"selected":["Zaakceptuj"],"freeText":null,"skipped":false}}}
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
@@ -244,26 +843,116 @@ Scenariusz zaakceptowany. Przechodzę do przypadków testowych: sprawdzam, czy p
 
 _**Agent (copilot/claude-haiku-5.5)**_
 
-<tool-use data-tool-type="generic" data-tool-name="copilot_listDirectory"><details>
-<summary>Tool use: **copilot_listDirectory**</summary>
+<tool-use data-tool-type="generic" data-tool-name="list_dir"><details>
+<summary>Tool use: **list_dir**</summary>
 
 Read `test-case`
+
+**Input:**
+
+- path: `c:\Projects\infoshare-accenture-testerai-1026\docs\test-case`
+
+**Result:**
+
+```
+ERROR while calling tool: Error: ENOENT: no such file or directory, scandir 'c:\Projects\infoshare-accenture-testerai-1026\docs\test-case'
+Please check your input and try again.
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
 
-<tool-use data-tool-type="generic" data-tool-name="copilot_readFile"><details>
-<summary>Tool use: **copilot_readFile**</summary>
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
 
 Read skill `user-story-writer`: `test-case.md`
+
+**Input:**
+
+- endLine: `200`
+- filePath: `c:\Projects\infoshare-accenture-testerai-1026\.github\skills\user-story-writer\references\checklists\test-case.md`
+- startLine: `1`
+
+**Result:**
+
+```
+# Checklista: przypadki testowe
+
+## Dobre praktyki
+
+- Jeden przypadek = jeden cel; niezależny od innych przypadków.
+- Unikalne ID; tytuł opisuje cel i oczekiwany wynik.
+- Pola: scenariusz, AC, typ (positive, negative, boundary), priorytet, referencje do zestawów danych.
+- `Preconditions` konkretne: stan systemu, konto, adres, środowisko.
+- Jedna akcja na krok; każdy krok ma obserwowalny oczekiwany rezultat.
+- Oczekiwane rezultaty precyzyjne: dosłowne teksty komunikatów tylko ze źródła (PRD, screenshot, obserwacja użytkownika); nieznane jako `TBD`.
+- Dane przez referencje (`TD-...`), nie wartości przepisane w wielu miejscach.
+- Krok wykonalny przez osobę bez znajomości funkcji.
+- Przypadki powtarzalne; dla brzegów oba punkty progu (ostatnia wartość odrzucona i pierwsza przyjęta).
+- Bez kodu i automatyzacji.
+
+## Złe praktyki
+
+- Wiele celów w jednym przypadku.
+- Zależność od innego przypadku ("wykonaj po TC-...").
+- Rezultaty typu "działa poprawnie", "wyświetla się komunikat" bez wskazania którego.
+- Wymyślone teksty komunikatów lub adresy.
+- Kroki bez oczekiwanego rezultatu.
+- Dane wpisane na stałe, których nie da się powtórzyć (np. e-mail, który może istnieć w systemie) bez uwagi o unikalności.
+- Postconditions bez wpływu na kolejne przypadki (zbędne).
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
 
-<tool-use data-tool-type="generic" data-tool-name="copilot_readFile"><details>
-<summary>Tool use: **copilot_readFile**</summary>
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
 
 Read skill `user-story-writer`: `test-case.md`
+
+**Input:**
+
+- endLine: `200`
+- filePath: `c:\Projects\infoshare-accenture-testerai-1026\.github\skills\user-story-writer\assets\templates\test-case.md`
+- startLine: `1`
+
+**Result:**
+
+```
+---
+scenario: TS-<MODULE>-<nr>
+story: US-<MODULE>-<nr>
+type: test-case
+status: draft
+---
+
+# Test cases for TS-<MODULE>-<nr> - <scenario title>
+
+## TC-<MODULE>-<nnn> - <title: objective and expected outcome>
+
+- **Scenario:** TS-<MODULE>-<nr>
+- **AC:** AC-<n>
+- **Type:** <positive | negative | boundary>
+- **Priority:** <High | Medium | Low>
+- **Test data:** <TD-ID or n/a>
+
+**Preconditions**
+- <concrete state: system, account, URL>
+
+**Steps**
+
+| # | Action | Expected result | Test data |
+|---|---|---|---|
+| 1 | <one action> | <observable result> | <TD-ID, value or n/a> |
+| 2 | <one action> | <observable result> | <TD-ID, value or n/a> |
+
+**Postconditions** (only if they matter for the case)
+- <state after execution>
+
+## TC-<MODULE>-<nnn> - <title>
+
+(same structure)
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
@@ -272,18 +961,136 @@ Plik `TC` jeszcze nie istnieje. Oczekiwane rezultaty muszą mieć źródło, wi�
 
 _**Agent (copilot/claude-haiku-5.5)**_
 
-<tool-use data-tool-type="generic" data-tool-name="copilot_findTextInFiles"><details>
-<summary>Tool use: **copilot_findTextInFiles**</summary>
+<tool-use data-tool-type="search" data-tool-name="grep_search"><details>
+<summary>Tool use: **grep_search**</summary>
 
 Searched for regex `koszyk|Koszyk|Dodaj|limit|Limit|Osiągnięto|Dodano|zalog|Zaloguj` (`**/docs/screenshots/README.md`), 11 results
+
+**Input:**
+
+- includePattern: `docs/screenshots/README.md`
+- isRegexp: `true`
+- query: `koszyk|Koszyk|Dodaj|limit|Limit|Osiągnięto|Dodano|zalog|Zaloguj`
+
+**Result:**
+
+```
+Found 11 matches in 1 file for "koszyk|Koszyk|Dodaj|limit|Limit|Osiągnięto|Dodano|zalog|Zaloguj"
+
+docs/screenshots/README.md
+17:         └─ "Dodaj do koszyka"
+102:| **Wymagania** | Breadcrumb, galeria, cena 299,99 zł, przycisk „Dodaj do koszyka" aktywny |
+189:| **Wymagania** | Automatyczny redirect do `/login?next=<ścieżka>` dla niezalogowanych |
+193:## S3 — Koszyk
+195:### 12 — Koszyk pusty
+202:| **PRD** | KOS-03 — stany koszyka |
+203:| **Wymagania** | Komunikat „Twój koszyk jest pusty", link do sklepu |
+207:### 13 — Koszyk z produktami
+230:| **Wymagania** | Formularz adresu (6 pól), wybór metody dostawy (Kurier/Paczkomat z cenami), podgląd koszyka |
+382:| KOS-01/03 | Koszyk — stany | [12](./12-s3-cart-empty.png), [13](./13-s3-cart-items.png) |
+383:| BR-01 | Max 5 produktów w koszyku | [13-s3-cart-items.png](./13-s3-cart-items.png) _(test: dodaj 6.)_ |
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
 
-<tool-use data-tool-type="generic" data-tool-name="copilot_readFile"><details>
-<summary>Tool use: **copilot_readFile**</summary>
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
 
 Read `README.md`, lines 96 to 230
+
+**Input:**
+
+- endLine: `230`
+- filePath: `c:\Projects\infoshare-accenture-testerai-1026\docs\screenshots\README.md`
+- startLine: `96`
+
+**Result:**
+
+```
+![05-s1-product-detail](./05-s1-product-detail.png)
+
+| | |
+|---|---|
+| **URL** | `/products/sluchawki-soundmax-x3` |
+| **PRD** | KAT-04 — zdjęcie, opis, cena, dostępność, CTA |
+| **Wymagania** | Breadcrumb, galeria, cena 299,99 zł, przycisk „Dodaj do koszyka" aktywny |
+
+---
+
+### 06 — Strona produktu (niedostępny, stock=0)
+
+![06-s1-product-unavailable](./06-s1-product-unavailable.png)
+
+| | |
+|---|---|
+| **URL** | `/products/sneakersy-urbanrun-pro` |
+| **PRD** | KAT-05 — stock=0 → przycisk nieaktywny |
+| **Wymagania** | „Niedostępny w magazynie", przycisk wyłączony |
+
+---
+
+## S2 — Autoryzacja
+
+### 07 — Rejestracja (pusty formularz)
+
+![07-s2-register](./07-s2-register.png)
+
+| | |
+|---|---|
+| **URL** | `/register` |
+| **PRD** | REG-01, REG-02 |
+| **Wymagania** | Pola: imię i nazwisko, e-mail, hasło, potwierdzenie hasła |
+
+---
+
+### 08 — Rejestracja — błędy walidacji
+
+![08-s2-register-validation](./08-s2-register-validation.png)
+
+| | |
+|---|---|
+| **URL** | `/register` (po błędnym submit) |
+| **PRD** | REG-02 — walidacja inline |
+| **Wymagania** | Czerwone komunikaty przy polach: format e-mail, zbyt krótkie hasło, brak znaku specjalnego |
+
+---
+
+### 09 — Logowanie
+
+![09-s2-login](./09-s2-login.png)
+
+| | |
+|---|---|
+| **URL** | `/login` |
+| **PRD** | REG-04, REG-05 |
+| **Wymagania** | Pola e-mail i hasło, link do rejestracji i resetu hasła |
+| **Test edge case** | 5 złych prób → komunikat lockout 15 min (BR-05) |
+
+---
+
+### 10 — Reset hasła — krok 1
+
+![10-s2-reset-password](./10-s2-reset-password.png)
+
+| | |
+|---|---|
+| **URL** | `/reset-password` |
+| **PRD** | REG-06 — link resetujący ważny 1h (BR-06) |
+| **Wymagania** | Pole e-mail, przycisk wysyłki, komunikat o wysłaniu (bez potwierdzenia czy konto istnieje) |
+
+---
+
+### 11 — Debug: skrzynka e-mail
+
+![11-s2-debug-emails](./11-s2-debug-emails.png)
+
+| | |
+|---|---|
+| **URL** | `/debug/emails` |
+| **PRD** | REG-03 (e-mail weryfikacyjny), CHK-10 (e
+… (output truncated)
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
@@ -296,6 +1103,66 @@ _**Agent (copilot/claude-haiku-5.5)**_
 <summary>Tool use: **vscode_askQuestions**</summary>
 
 Analyzing your answers...
+
+**Input:**
+
+- questions:
+
+```
+[
+  {
+    "allowFreeformInput": true,
+    "header": "sciezka_tc",
+    "options": [
+      {
+        "description": "Nowy plik zgodny ze wzorcem z procedury",
+        "label": "docs/test-case/TS-KOS-01-cart-availability.test-case.md",
+        "recommended": true
+      }
+    ],
+    "question": "Potwierdzasz ścieżkę nowego pliku test-case?"
+  },
+  {
+    "allowFreeformInput": true,
+    "header": "stan_konta",
+    "options": [
+      {
+        "description": "Nazwy 5 produktów i sposob przygotowania koszyka w TD-KOS-01; w TC tylko referencja",
+        "label": "Odroczyć - TBD w TC-KOS-004/005",
+        "recommended": true
+      },
+      {
+        "description": "Podam nazwy 5 produktów dostępnych w katalogu",
+        "label": "Podam produkty"
+      }
+    ],
+    "question": "Brak źródła, które produkty i jak przygotować koszyk z 5 pozycjami (TC-KOS-004/005). Jak postąpić?"
+  },
+  {
+    "allowFreeformInput": true,
+    "header": "komunikat_dodania",
+    "options": [
+      {
+        "description": "Brak dosłownego komunikatu w PRD i screenshotach; sprawdzamy pozycję w /cart (screenshot 13)",
+        "label": "Pozycja widoczna w /cart (ilość, cena), bez komunikatu",
+        "recommended": true
+      },
+      {
+        "description": "Oczekiwany komunikat po dodaniu do odpowiedzi PO",
+        "label": "TBD - komunikat do potwierdzenia"
+      }
+    ],
+    "question": "Jaki oczekiwany rezultat po kliknięciu „Dodaj do koszyka” (AC-1)? Źródła nie podają komunikatu."
+  }
+]
+```
+
+
+**Result:**
+
+```
+{"answers":{"sciezka_tc":{"selected":["docs/test-case/TS-KOS-01-cart-availability.test-case.md"],"freeText":null,"skipped":false},"stan_konta":{"selected":["Odroczyć - TBD w TC-KOS-004/005"],"freeText":null,"skipped":false},"komunikat_dodania":{"selected":["TBD - komunikat do potwierdzenia"],"freeText":null,"skipped":false}}}
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
@@ -304,10 +1171,166 @@ Zapisuję szkic iteracji 0 w nowym pliku ze statusem `draft`. Nieznane wartości
 
 _**Agent (copilot/claude-haiku-5.5)**_
 
-<tool-use data-tool-type="generic" data-tool-name="copilot_createFile"><details>
-<summary>Tool use: **copilot_createFile**</summary>
+<tool-use data-tool-type="write" data-tool-name="create_file"><details>
+<summary>Tool use: **create_file**</summary>
 
 Created `TS-KOS-01-cart-availability.test-case.md`
+
+**Input:**
+
+- content:
+
+```
+---
+scenario: TS-KOS-01
+story: US-KOS-01
+type: test-case
+status: draft
+---
+
+# Test cases for TS-KOS-01 - Customer keeps cart items across page reload, login and the 5-product limit
+
+## TC-KOS-001 - Guest adds an available product to the cart
+
+- **Scenario:** TS-KOS-01
+- **AC:** AC-1
+- **Type:** positive
+- **Priority:** High
+- **Test data:** TD-KOS-01
+
+**Preconditions**
+- Guest (not logged in), no SoundMax X3 in the cart.
+- Product page `/products/sluchawki-soundmax-x3` is available (stock > 0).
+
+**Steps**
+
+| # | Action | Expected result | Test data |
+|---|---|---|---|
+| 1 | Open `/products/sluchawki-soundmax-x3` | Product page shows price 299,99 zł and an active "Dodaj do koszyka" button | TD-KOS-01 |
+| 2 | Click "Dodaj do koszyka" | Confirmation of the action: TBD (Open questions 1) | TD-KOS-01 |
+| 3 | Open `/cart` | Cart lists SoundMax X3, quantity 1, unit price 299,99 zł | TD-KOS-01 |
+
+## TC-KOS-002 - Guest cart items are still shown after page reload
+
+- **Scenario:** TS-KOS-01
+- **AC:** AC-2
+- **Type:** positive
+- **Priority:** High
+- **Test data:** TD-KOS-01
+
+**Preconditions**
+- Guest (not logged in), no SoundMax X3 in the cart.
+
+**Steps**
+
+| # | Action | Expected result | Test data |
+|---|---|---|---|
+| 1 | Open `/products/sluchawki-soundmax-x3` and click "Dodaj do koszyka" | Product is added to the cart (see TC-KOS-001, step 2) | TD-KOS-01 |
+| 2 | Open `/cart` | Cart lists SoundMax X3, quantity 1 | TD-KOS-01 |
+| 3 | Reload the page | Cart still lists SoundMax X3, quantity 1, unit price 299,99 zł | TD-KOS-01 |
+
+## TC-KOS-003 - Guest cart merges with account cart after login (same product)
+
+- **Scenario:** TS-KOS-01
+- **AC:** AC-3
+- **Type:** positive
+- **Priority:** High
+- **Test data:** TD-KOS-01
+
+**Preconditions**
+- Registered test account (see `docs/product/konta-testowe.md`) has SoundMax X3 in the cart: set-up TBD (Open questions 3).
+- Guest (not logged in) has SoundMax X3, quantity 1, in the cart.
+
+**Steps**
+
+| # | Action | Expected result | Test data |
+|---|---|---|---|
+| 1 | Open `/products/sluchawki-soundmax-x3` and click "Dodaj do koszyka" as guest | Product is added to the guest cart | TD-KOS-01 |
+| 2 | Open `/login`, enter the test account e-mail and password, submit | Login succeeds; redirect target TBD (Open questions 4) | TD-KOS-01 |
+| 3 | Open `/cart` | One line for SoundMax X3 with quantity TBD (story AC-3, Open questions 2) | TD-KOS-01 |
+
+## TC-KOS-004 - Adding a 6th different product shows the limit message
+
+- **Scenario:** TS-KOS-01
+- **AC:** AC-4
+- **Type:** boundary
+- **Priority:** High
+- **Test data:** TD-KOS-01
+
+**Preconditions**
+- Registered customer is logged in and the cart contains 5 different products: set-up TBD (Open questions 3).
+- A 6th product, different from the 5, is available (stock > 0): TBD (Open questions 3).
+
+**Steps**
+
+| # | Action | Expected result | Test data |
+|---|---|---|---|
+| 1 | Open `/cart` | Cart lists 5 different products | TD-KOS-01 |
+| 2 | Open the product page of the 6th product | Product page shows an active "Dodaj do koszyka" button | TD-KOS-01 |
+| 3 | Click "Dodaj do koszyka" | Message "Osiągnięto limit pozycji dla konta standardowego (5). Usuń produkt lub przejdź na konto Premium." is shown | TD-KOS-01 |
+| 4 | Open `/cart` | Cart still lists 5 different products; the 6th product is not in the cart | TD-KOS-01 |
+
+## TC-KOS-005 - Adding a 5th different product is accepted
+
+- **Scenario:** TS-KOS-01
+- **AC:** AC-4
+- **Type:** boundary
+- **Priority:** Medium
+- **Test data:** TD-KOS-01
+
+**Preconditions**
+- Registered customer is logged in and the cart contains 4 different products: set-up TBD (Open questions 3).
+- A 5th product, different from the 4, is available (stock > 0): TBD (Open questions 3).
+
+**Steps**
+
+| # | Action | Expected result | Test data |
+|---|---|---|---|
+| 1 | Open `/cart` | Cart lists 4 different products | TD-KOS-01 |
+| 2 | Open the product page of the 5th product | Product page shows an active "Dodaj do koszyka" button | TD-KOS-01 |
+| 3 | Click "Dodaj do koszyka" | Limit message is not shown | TD-KOS-01 |
+| 4 | Open `/cart` | Cart lists 5 different products, including the 5th product | TD-KOS-01 |
+
+## TC-KOS-006 - Guest cart with a different product merges with account cart after login
+
+- **Scenario:** TS-KOS-01
+- **AC:** AC-5
+- **Type:** positive
+- **Priority:** Medium
+- **Test data:** TD-KOS-01
+
+**Preconditions**
+- Registered test account has one product (not SoundMax X3) in the cart: product and set-up TBD (Open questions 3).
+- Guest (not logged in) has SoundMax X3, quantity 1, in the cart.
+
+**Steps**
+
+| # | Action | Expected result | Test data |
+|---|---|---|---|
+| 1 | Open `/products/sluchawki-soundmax-x3` and click "Dodaj do koszyka" as guest | Product is added to the guest cart | TD-KOS-01 |
+| 2 | Open `/login`, enter the test account e-mail and password, submit | Login succeeds | TD-KOS-01 |
+| 3 | Open `/cart` | Cart contains the account product and SoundMax X3 (merge rule: story Open questions 1) | TD-KOS-01 |
+
+## Open questions
+
+| # | Question | Owner | Status |
+|---|---|---|---|
+| 1 | What confirmation is shown after clicking "Dodaj do koszyka" (TC-KOS-001, TC-KOS-002)? No message is defined in PRD or screenshots. | Product owner | open |
+| 2 | Resulting quantity when the same product is in both carts (TC-KOS-003, step 3). Story Open questions 2. | Product owner | open |
+| 3 | Set-up of the test account carts: which products, how to prepare 4 and 5 different products, and whether "account already has SoundMax X3" means cart or order history. Story Open questions 5. | QA lead / Product owner | open |
+| 4 | Redirect target after login (TC-KOS-003, TC-KOS-006). Not defined in PRD. | Product owner | open |
+| 5 | Test data file TD-KOS-01 does not exist yet. | QA | open |
+
+```
+
+- filePath: `c:\Projects\infoshare-accenture-testerai-1026\docs\test-case\TS-KOS-01-cart-availability.test-case.md`
+
+**Result:**
+
+```
+The following files were successfully edited:
+c:\Projects\infoshare-accenture-testerai-1026\docs\test-case\TS-KOS-01-cart-availability.test-case.md
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
@@ -630,6 +1653,38 @@ _**Agent (copilot/claude-haiku-5.5)**_
 <summary>Tool use: **vscode_askQuestions**</summary>
 
 Analyzing your answers...
+
+**Input:**
+
+- questions:
+
+```
+[
+  {
+    "allowFreeformInput": true,
+    "header": "akceptacja_tc",
+    "options": [
+      {
+        "description": "Przechodzimy do danych testowych TD-KOS-01",
+        "label": "Zaakceptuj",
+        "recommended": true
+      },
+      {
+        "description": "Wpisz uwagę do poprawki",
+        "label": "Popraw"
+      }
+    ],
+    "question": "Zaakceptujesz szkic TC-KOS (6 przypadków, status draft)? Następny krok: test-data."
+  }
+]
+```
+
+
+**Result:**
+
+```
+{"answers":{"akceptacja_tc":{"selected":["Zaakceptuj"],"freeText":null,"skipped":false}}}
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
@@ -638,26 +1693,148 @@ Przypadki zaakceptowane. Ostatni artefakt w łańcuchu to dane testowe: ładuję
 
 _**Agent (copilot/claude-haiku-5.5)**_
 
-<tool-use data-tool-type="generic" data-tool-name="copilot_readFile"><details>
-<summary>Tool use: **copilot_readFile**</summary>
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
 
 Read skill `user-story-writer`: `test-data.md`
+
+**Input:**
+
+- endLine: `200`
+- filePath: `c:\Projects\infoshare-accenture-testerai-1026\.github\skills\user-story-writer\references\checklists\test-data.md`
+- startLine: `1`
+
+**Result:**
+
+```
+# Checklista: dane testowe
+
+## Dobre praktyki
+
+- Każdy zestaw ma ID, cel, klasę, wartości i listę przypadków, które go używają.
+- Klasy danych: poprawne, niepoprawne, brzegowe, puste, specjalne (polskie znaki, znaki HTML), duże wartości.
+- Wartości brzegowe wynikają z reguł w źródłach (np. minimum 8 znaków daje 7 i 8).
+- Dane fikcyjne; żadnych danych realnych osób (PRD: dane osobowe w materiałach są fikcyjne lub zanonimizowane).
+- Dane powtarzalne. Dla pól wymagających unikalności opisz sposób generowania wartości (np. sufiks z datą) i uwagę o pozostających w systemie rekordach.
+- Konta testowe tylko z `docs/product/konta-testowe.md`; podaj rolę konta, nie kopiuj haseł poza to, co jest tam zapisane.
+- Każdy zestaw jest użyty przez co najmniej jeden przypadek.
+- Sekcja `Conventions` opisuje unikalność, reset i czyszczenie danych; nieznane jako `TBD`.
+
+## Złe praktyki
+
+- Dane realne lub wyglądające na realne (prawdziwe nazwiska, adresy, PESEL).
+- Losowe wartości bez opisu sposobu odtworzenia.
+- Zestaw bez celu lub bez wskazania, który przypadek go używa.
+- Wartości brzegowe wymyślone bez związku z regułą.
+- Dane konsumowane (np. e-mail rejestracji) bez uwagi o ponownym użyciu.
+- Kopiowanie tych samych wartości do przypadków zamiast referencji do zestawu.
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
 
-<tool-use data-tool-type="generic" data-tool-name="copilot_readFile"><details>
-<summary>Tool use: **copilot_readFile**</summary>
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
 
 Read skill `user-story-writer`: `test-data.md`
+
+**Input:**
+
+- endLine: `200`
+- filePath: `c:\Projects\infoshare-accenture-testerai-1026\.github\skills\user-story-writer\assets\templates\test-data.md`
+- startLine: `1`
+
+**Result:**
+
+```
+---
+scenario: TS-<MODULE>-<nr>
+story: US-<MODULE>-<nr>
+type: test-data
+status: draft
+---
+
+# Test data for TS-<MODULE>-<nr> - <scenario title>
+
+## Data sets
+
+Columns after `Class` are the input fields used by the scenario.
+
+| ID | Purpose | Class | <field 1> | <field 2> | <field 3> | Used by |
+|---|---|---|---|---|---|---|
+| TD-<MODULE>-<nn> | <what it checks> | <valid / invalid / boundary / empty / special> | <value> | <value> | <value> | TC-<MODULE>-<nnn> |
+
+## Conventions
+
+- Uniqueness: <how unique values are generated, which fields must be unique>
+- Reset and cleanup: <how data is removed or reset, or TBD>
+- Data policy: all data is fictional; no real personal data.
+- Test accounts: <role and source (docs/product/konta-testowe.md), or n/a>
+
+## Open questions
+
+| # | Question | Owner | Status |
+|---|---|---|---|
+| 1 | <question> | <role> | open |
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
 
-<tool-use data-tool-type="generic" data-tool-name="copilot_readFile"><details>
-<summary>Tool use: **copilot_readFile**</summary>
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
 
 Read `konta-testowe.md`
+
+**Input:**
+
+- endLine: `200`
+- filePath: `c:\Projects\infoshare-accenture-testerai-1026\docs\product\konta-testowe.md`
+- startLine: `1`
+
+**Result:**
+
+````
+# ShopEasy 
+
+**Wersja:** 1.0  
+**Aplikacja:** http://localhost:3000/  
+
+**Konto testowe:** `test@shopeasy.pl` / `Test1234!`
+
+## Uruchomienie aplikacji
+
+Z katalogu `shopeasy-demo`:
+
+```bash
+cd shopeasy-demo
+npm run dev
+```
+
+Pierwsze uruchomienie wymaga wcześniej: `npm install`, `npx prisma db push`, `npx prisma generate` oraz `npm run seed`.
+
+### Gdy port 3000 jest zajęty
+
+Sprawdź, który proces go używa:
+
+```bash
+netstat -ano | findstr :3000
+```
+
+Zatrzymaj proces o wskazanym PID:
+
+```bash
+taskkill /PID <PID> /F
+```
+
+Albo uruchom aplikację na innym porcie, np. 3001:
+
+```bash
+npx next dev -p 3001
+```
+
+Wtedy aplikacja działa pod adresem http://localhost:3001/. Konto testowe pozostaje bez zmian.
+````
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
@@ -670,6 +1847,82 @@ _**Agent (copilot/claude-haiku-5.5)**_
 <summary>Tool use: **vscode_askQuestions**</summary>
 
 Analyzing your answers...
+
+**Input:**
+
+- questions:
+
+```
+[
+  {
+    "allowFreeformInput": true,
+    "header": "sciezka_td",
+    "options": [
+      {
+        "description": "Nowy plik zgodny ze wzorcem",
+        "label": "docs/test-data/TS-KOS-01-cart-availability.test-data.md",
+        "recommended": true
+      }
+    ],
+    "question": "Potwierdzasz ścieżkę nowego pliku test-data?"
+  },
+  {
+    "allowFreeformInput": true,
+    "header": "konto",
+    "options": [
+      {
+        "description": "Jedno konto test@shopeasy.pl (konta-testowe.md); stan koszyka ustawiany przed każdym przypadkiem; sposób resetu TBD. Rola konta (standard/Premium) TBD.",
+        "label": "Jedno konto z konta-testowe.md, reset stanu koszyka TBD",
+        "recommended": true
+      },
+      {
+        "description": "Osobne konta dla przypadków z koszykiem konta (wymaga zgody QA lead / PO)",
+        "label": "Osobne konta - do ustalenia"
+      }
+    ],
+    "question": "Konto testowe: w konta-testowe.md jest jedno konto. Czy wszystkie przypadki konta używają go, mimo różnych stanów koszyka?"
+  },
+  {
+    "allowFreeformInput": true,
+    "header": "zestawy",
+    "options": [
+      {
+        "description": "TD-KOS-01 gość (SoundMax X3); TD-KOS-02 koszyk konta (0/1/4/5 pozycji); TD-KOS-03 6. produkt. TC zostaną przepięte na te ID.",
+        "label": "Rozbić na 3 zestawy",
+        "recommended": true
+      },
+      {
+        "description": "Zostawić jeden zestaw TD-KOS-01 jak w TC",
+        "label": "Jeden zestaw TD-KOS-01"
+      }
+    ],
+    "question": "Jak podzielić dane? TC odwołują się dziś do samego TD-KOS-01."
+  },
+  {
+    "allowFreeformInput": true,
+    "header": "produkty",
+    "options": [
+      {
+        "description": "Nazwy 4-6 produktów pozostają TBD w Open questions",
+        "label": "Odroczyć - TBD",
+        "recommended": true
+      },
+      {
+        "description": "Podam nazwy produktów z katalogu",
+        "label": "Podam produkty"
+      }
+    ],
+    "question": "Nazwy innych produktów (poza SoundMax X3 i sneakersy-urbanrun-pro, który jest niedostępny) dla koszyka z 4-5 pozycjami są nieznane. Jak postąpić?"
+  }
+]
+```
+
+
+**Result:**
+
+```
+{"answers":{"sciezka_td":{"selected":["docs/test-data/TS-KOS-01-cart-availability.test-data.md"],"freeText":null,"skipped":false},"konto":{"selected":["Jedno konto z konta-testowe.md, reset stanu koszyka TBD"],"freeText":null,"skipped":false},"zestawy":{"selected":["Jeden zestaw TD-KOS-01"],"freeText":null,"skipped":false},"produkty":{"selected":["Odroczyć - TBD"],"freeText":null,"skipped":false}}}
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
@@ -678,10 +1931,65 @@ Zapisuję zestaw TD-KOS-01 zgodnie z wyborem (jeden zestaw). Hasła nie kopiuję
 
 _**Agent (copilot/claude-haiku-5.5)**_
 
-<tool-use data-tool-type="generic" data-tool-name="copilot_createFile"><details>
-<summary>Tool use: **copilot_createFile**</summary>
+<tool-use data-tool-type="write" data-tool-name="create_file"><details>
+<summary>Tool use: **create_file**</summary>
 
 Created `TS-KOS-01-cart-availability.test-data.md`
+
+**Input:**
+
+- content:
+
+```
+---
+scenario: TS-KOS-01
+story: US-KOS-01
+type: test-data
+status: draft
+---
+
+# Test data for TS-KOS-01 - Customer keeps cart items across page reload, login and the 5-product limit
+
+## Data sets
+
+Columns after `Class` are the input fields used by the scenario.
+
+| ID | Purpose | Class | Product | Quantity | Account | Account cart before case | Used by |
+|---|---|---|---|---|---|---|---|
+| TD-KOS-01 | Guest and registered cart flows, product limit (BR-01) | valid, boundary (4, 5, 6 distinct products) | SoundMax X3, `/products/sluchawki-soundmax-x3`, 299,99 zł; 4-6 other distinct products: TBD | 1 | test@shopeasy.pl (see `docs/product/konta-testowe.md`) | 0, 1 (SoundMax X3), 4, or 5 distinct products: set-up TBD | TC-KOS-001, TC-KOS-002, TC-KOS-003, TC-KOS-004, TC-KOS-005, TC-KOS-006 |
+
+Set purpose by case:
+- 4 distinct products in account cart: TC-KOS-005 (5th product accepted).
+- 5 distinct products in account cart: TC-KOS-004 (6th product rejected, BR-01).
+- 1 other product in account cart: TC-KOS-006 (different-product merge).
+- SoundMax X3 in account cart: TC-KOS-003 (same-product merge; quantity TBD).
+
+## Conventions
+
+- Uniqueness: not required; the cases use an existing account and no registration.
+- Reset and cleanup: TBD. The account cart persists after login (KOS-02), so the cart state before each case must be set and reset explicitly.
+- Data policy: all data is fictional; no real personal data.
+- Test accounts: `test@shopeasy.pl` from `docs/product/konta-testowe.md`. Role: TBD (KOS-04 limit applies to a standard account). Password is not copied here.
+
+## Open questions
+
+| # | Question | Owner | Status |
+|---|---|---|---|
+| 1 | How to reset or set the account cart before each case (TC-KOS-003 to TC-KOS-006)? | QA lead | open |
+| 2 | Role of `test@shopeasy.pl`: standard or Premium? KOS-04 and BR-01 apply to a standard account. | Product owner | open |
+| 3 | Names of 4-6 distinct products for the account cart (TC-KOS-004, TC-KOS-005), and the product for TC-KOS-006. Only SoundMax X3 and `sneakersy-urbanrun-pro` (out of stock, screenshot 06) are known. | QA lead | open |
+| 4 | Does "account already has SoundMax X3" mean in cart or in order history? Needed for TC-KOS-003 precondition (story Open questions 5). | Product owner | open |
+
+```
+
+- filePath: `c:\Projects\infoshare-accenture-testerai-1026\docs\test-data\TS-KOS-01-cart-availability.test-data.md`
+
+**Result:**
+
+```
+The following files were successfully edited:
+c:\Projects\infoshare-accenture-testerai-1026\docs\test-data\TS-KOS-01-cart-availability.test-data.md
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
@@ -772,6 +2080,38 @@ _**Agent (copilot/claude-haiku-5.5)**_
 <summary>Tool use: **vscode_askQuestions**</summary>
 
 Analyzing your answers...
+
+**Input:**
+
+- questions:
+
+```
+[
+  {
+    "allowFreeformInput": true,
+    "header": "akceptacja_td",
+    "options": [
+      {
+        "description": "Ustawię statusy na accepted w całym łańcuchu i podsumuję",
+        "label": "Zaakceptuj",
+        "recommended": true
+      },
+      {
+        "description": "Wpisz uwagę do poprawki",
+        "label": "Popraw"
+      }
+    ],
+    "question": "Zaakceptujesz TD-KOS-01 (status draft)? Po akceptacji ustawię statusy accepted we wszystkich czterech plikach."
+  }
+]
+```
+
+
+**Result:**
+
+```
+{"answers":{"akceptacja_td":{"selected":["Zaakceptuj"],"freeText":null,"skipped":false}}}
+```
 </details></tool-use>
 
 _**Agent (copilot/claude-haiku-5.5)**_
@@ -780,8 +2120,101 @@ Wszystkie cztery artefakty zaakceptowane. Ustawiam status `accepted` w nagłówk
 
 _**Agent (copilot/claude-haiku-5.5)**_
 
-<tool-use data-tool-type="generic" data-tool-name="copilot_multiReplaceString"><details>
-<summary>Tool use: **copilot_multiReplaceString**</summary>
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **US-KOS-01-cart-availability.user-story.md**</summary>
 
-Multi-Replace String in Files
+@@ lines 5-5 @@
+
+```
+accepted
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+
+```
+
+```
+
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **TS-KOS-01-cart-availability.test-scenario.md**</summary>
+
+@@ lines 6-6 @@
+
+```
+accepted
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+
+```
+
+```
+
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **TS-KOS-01-cart-availability.test-case.md**</summary>
+
+@@ lines 5-5 @@
+
+```
+accepted
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+
+```
+
+```
+
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **TS-KOS-01-cart-availability.test-data.md**</summary>
+
+@@ lines 5-5 @@
+
+```
+accepted
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+Zakończono łańcuch dla US-KOS-01 (edycja). Wszystkie cztery artefakty mają status `accepted`.
+
+Zmienione pliki:
+- `docs/user-story/US-KOS-01-cart-availability.user-story.md`: Story opisuje gościa i zalogowanego klienta, dodany AC-5 (różne produkty przy scaleniu), powiązany scenariusz.
+- `docs/test-scenario/TS-KOS-01-cart-availability.test-scenario.md`: TC-KOS-006 zmapowany na AC-5, TC-KOS-005 i 006 mają priorytet Medium z uzasadnieniem.
+- `docs/test-case/TS-KOS-01-cart-availability.test-case.md`: nowy plik, 6 przypadków (TC-KOS-001 do 006). Komunikat limitu pochodzi dosłownie z KOS-05.
+- `docs/test-data/TS-KOS-01-cart-availability.test-data.md`: nowy plik, jeden zestaw TD-KOS-01.
+
+Uwaga: checklista zaleca jedną rolę w historyjce. Wybrałeś wariant z gościem i zalogowanym klientem w jednej story, więc to odstępstwo od checklisty.
+
+Pozostałe `TBD` (do rozstrzygnięcia, głównie przez Product Ownera Martę Nowak):
+- Scalanie koszyków: reguła i ilość przy tym samym produkcie (AC-3), limit po scaleniu, czy „konto ma słuchawki" oznacza koszyk czy historię zamówień.
+- Czas trwania koszyka gościa po przeładowaniu (AC-2).
+- Komunikat po kliknięciu „Dodaj do koszyka" i adres przekierowania po zalogowaniu.
+- Środowisko testowe (system, przeglądarka) w scenariuszu.
+- Sposób resetu koszyka konta testowego, rola `test@shopeasy.pl` (standard czy Premium) i nazwy 4 do 6 produktów do testów limitu.
+
+Propozycja kolejnego kroku: po odpowiedziach PO zaktualizować oczekiwane wyniki TC-KOS-003 i TC-KOS-006. Rozważyć osobną story dla gościa (zgodnie z checklistą).
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list"><details>
+<summary>Tool use: **manage_todo_list**</summary>
+
+Completed: *Create test case for cart availability* (2/3)
 </details></tool-use>

@@ -15,7 +15,7 @@
 - URL: http://localhost:3000
 - Wersja / build: TBD
 - Przeglądarka / urządzenie: TBD
-- Konto / rola (bez haseł): TBD (konto klienta, na którym jest ten sam produkt co w koszyku gościa)
+- Konto / rola (bez haseł): test@shopeasy.pl, Jan Testowy (konto klienta z docs/product/konta-testowe.md)
 - Dane testowe: produkt SoundMax X3 (słuchawki)
 
 ## 3. Charter
@@ -34,10 +34,12 @@ Wynik: ZGODNY / BUG / OBSERWACJA / ZABLOKOWANIE
 | 11:55 | K03 | Zalogowano jako Jan Testowy (konto testowe z docs/product/konta-testowe.md), otwarto koszyk | BUG (podejrzenie) | BUG-S01-01. Koszyk konta pusty, pozycja z koszyka gościa nie pojawiła się |
 | 12:00 | K04 | Dodano SoundMax X3 jako zalogowany; odświeżono stronę, wylogowano i zalogowano ponownie, otwarto koszyk | ZGODNY | Wg testera pozycja zachowana: 1 szt., 299,99 zł. Sprawdza KOS-02 |
 | 11:59 | K04 | Dodano SoundMax X3 jako zalogowany; trwałość: odświeżenie, wylogowanie i ponowne zalogowanie, sprawdzenie koszyka | ZGODNY | Wg testera (potwierdzenie „OK” po każdym kroku). Stan koszyka po każdym kroku do uzupełnienia |
+| retest | R01 | Retest BUG-S01-01 od czystego stanu: wyczyszczono koszyk konta, gość dodał SoundMax X3, wylogowanie, zalogowanie jako Jan Testowy, otwarcie koszyka | ZGODNY | Pozycja scalona: 1 szt., 299,99 zł. BUG-S01-01 nie odtworzono |
 
 ## 5. Bugi
 ### BUG-S01-01: Pozycja z koszyka gościa znika po zalogowaniu na konto
 - Krok źródłowy: K03
+- Status: NIE ODTWORZONO (retest R01)
 - Środowisko: ShopEasy (web), http://localhost:3000, konto testowe Jan Testowy (bez hasła w karcie)
 - Kroki odtworzenia:
   1. Jako gość dodać słuchawki SoundMax X3 do koszyka (K01, K02).
@@ -52,5 +54,5 @@ Wynik: ZGODNY / BUG / OBSERWACJA / ZABLOKOWANIE
 - Pokryte obszary: koszyk gościa przed logowaniem (K01-K02); koszyk konta po zalogowaniu (K03); trwałość koszyka zalogowanego klienta po odświeżeniu, wylogowaniu i ponownym logowaniu (K04, KOS-02).
 - Niepokryte / do zrobienia: scalanie koszyka gościa z koszykiem konta, gdy konto ma już produkty (scenariusz E02 w pełnej postaci, nie wykonano); limit 5 pozycji dla konta standardowego (KOS-04); oczekiwany wynik scalania do potwierdzenia z PO (Marta Nowak).
 - Zablokowania (setup, dane, dostęp): brak. Nie potwierdzono, czy konto testowe ma w historii lub koszyku słuchawki SoundMax X3 przed sesją.
-- Bugi: BUG-S01-01 (ważność: wysoka, BUG podejrzenie): pozycja z koszyka gościa nie pojawia się w koszyku konta po zalogowaniu.
+- Bugi: BUG-S01-01 (ważność: wysoka, pierwotnie podejrzenie): pozycja z koszyka gościa nie pojawiła się w koszyku konta po zalogowaniu. Retest R01: nie odtworzono, pozycja scalona poprawnie (przy pustym koszyku konta).
 - Proponowane kolejne sesje: S02 po potwierdzeniu wyniku z PO: scalanie koszyka gościa z niepustym koszykiem konta oraz limit KOS-04.

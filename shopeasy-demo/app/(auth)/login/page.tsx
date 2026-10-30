@@ -9,7 +9,7 @@ import { mergeGuestCart } from '@/lib/actions/cart'
 import { useCartStore } from '@/store/cart'
 
 // KOS-02: ustaw true, aby łączyć koszyk gościa z kontem po zalogowaniu
-const MERGE_GUEST_CART_ON_LOGIN = false
+const MERGE_GUEST_CART_ON_LOGIN = true
 
 function LoginForm() {
   const router = useRouter()
